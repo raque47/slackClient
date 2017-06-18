@@ -49,7 +49,7 @@ class Login extends React.Component {
 
                     <div className="containerLogoModal">
                         <img src={require(`../../images/logoModal.png`)} className="imageLogoModal" />
-                        <div className="textModal">Sign up to your team</div>
+                        <div className="textModal">Sign in</div>
                     </div>
 
                     <div className="containerInputsModal">

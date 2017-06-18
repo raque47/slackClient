@@ -13,12 +13,16 @@ class NavBarChat extends React.Component {
                   <div className='col-md-10'>
                     <div className='navBarChat'>
                         <div className='navBarLeft'>
-                            <h3 className='titleNavBarLeft'>Channel#2</h3>
-                            <img src={require(`../../images/star.svg`)} className='imageNavBarLeft starImage' />
-                            <img src={require(`../../images/user.svg`)} className='imageNavBarLeft userImage' />
-                            <img src={require(`../../images/pin.svg`)} className='imageNavBarLeft pinImage' />
-                            <img src={require(`../../images/add.svg`)} className='imageNavBarLeft addImage' />
-                            <p className='textNavBarLeft'>Add a topic</p>
+                            <div className='title'>
+                                <h3 className='titleNavBarLeft'>Channel#2</h3>
+                            </div>
+                            <div className='images'>
+                                <img src={require(`../../images/star.svg`)} className='imageNavBarLeft starImage' />
+                                <img src={require(`../../images/user.svg`)} className='imageNavBarLeft userImage' />
+                                <img src={require(`../../images/pin.svg`)} className='imageNavBarLeft pinImage' />
+                                <img src={require(`../../images/add.svg`)} className='imageNavBarLeft addImage' />
+                                <p className='textNavBarLeft'>Add a topic</p>
+                            </div>
                         </div>
                         <div className='navBarRight'>
                             <div className='searchInputContainer'>

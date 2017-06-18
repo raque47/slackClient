@@ -24,7 +24,7 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 3rem;
-    margin-top: 5rem;
+    margin-top: 6.5rem;
 }
 .imageLogoModal{
     padding: 1rem;
@@ -33,7 +33,7 @@
     width: 51,22%;
     color: #212121;
     font-family: "Helvetica Neue";
-    font-size: 16px;
+    font-size: 32px;
     font-weight: 300;
     line-height: 36px;
     text-align: center;
@@ -48,6 +48,7 @@
     display: flex;
     flex-direction: column;
     width: 65.61%; 
+    margin-top: 4rem;
 }
 .inputRectangle{
     display: flex;
@@ -64,30 +65,33 @@
     flex-direction: row;
 }
 .rectangleInput{
-    width: 81.65%;
-    height: 30px;
+    width: 76.99%;
+   height: 40px;
     border-radius: 4px;
     background-color: #ffffff;
     border-radius: 4px 0 0 4px;
 }
 .rectangleInputUser{
     width: 98.65%;
-    height: 30px;
+    height: 40px;
     border-radius: 4px;
     background-color: #ffffff;
     border-radius: 4px 4px 4px 4px;
 }
 .rectangleSubmitArrow{
     width: 21.39%;
-    height: 35px;
+    height: 40px;
     background-color: #20a766;
     border-radius: 0 4px 4px 0;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .arrowSubmit{
     width: 58.8%;
     padding-top: 0.3rem;
+    height: 23px;
 }
 /*Header - navbar*/
 .header{
@@ -152,6 +156,38 @@
         margin: 0;
         width: 100%;
         height: 100vh;
+        top: 55px;
+        left: 1.3px;
+        border-radius: 0px;
+    }
+    .image-background {
+        height: 0;
+    }
+    .navBar{
+        justify-content: flex-start;
+    }
+    .backgroundElemnts{
+        display: none;
+    }
+    .container-fluid {
+        padding-right: 9px;
+    }
+    .buttonHeader {
+        margin: 0.6rem;
+        margin-right: -1rem;
+    }
+}
+
+
+/*Responsive*/
+@media only screen and (max-width: 640px) {
+    .modalLogin {
+        margin: 0;
+        width: 100%;
+        height: 100vh;
+        top: 55px;
+        left: 0.3px;
+        border-radius: 0px;
     }
     .image-background {
         height: 0;
@@ -162,5 +198,49 @@
     .backgroundElemnts{
         display: none;
     }
+    .container-fluid {
+        padding-right: 9px;
+    }
+        .buttonHeader {
+        margin: 0.6rem;
+        margin-right: -1rem;
+    }
 }
- 
+
+@media screen and (device-aspect-ratio: 40/71) {
+    .modalLogin {
+        margin: 0;
+        width: 100%;
+        height: 100vh;
+        top: 55px;
+        left: 1.3px;
+        border-radius: 0px;
+    }
+    .image-background {
+        height: 0;
+    }
+    .navBar{
+        justify-content: flex-start;
+    }
+    .backgroundElemnts{
+        display: none;
+    }
+    .container-fluid {
+        padding-right: 9px;
+    }
+    .buttonHeader {
+        margin: 0.6rem;
+        margin-right: -1rem;
+    }
+    .linkHeader {
+        margin: 0.9rem;
+    }
+
+    .imageLogoModal {
+        padding-right: 0rem;
+    }
+
+    .modalLogin {
+        top: 49px;
+    }
+}
