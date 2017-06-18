@@ -1,0 +1,84 @@
+@import '../../scss/helpers/variables';
+$marginCalc: calc((8.7vh - 30px)/2);
+
+.mainChat{
+  max-height: $main__hight;
+  overflow: hidden;
+  overflow-y: auto;
+  position:relative; 
+}
+.messageEntry{
+  display: flex;
+  padding-top: $marginCalc;
+  text-align: center;
+  justify-content: center;
+}
+.buttonPlus{
+  background-color: rgb(224, 224, 224);
+  border-radius: 5px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-left: 1px solid rgb(200, 200, 200) ;
+  border-top: 1px solid rgb(200, 200, 200) ;
+  border-bottom: 1px solid rgb(200, 200, 200) ;
+  border-right: none;  
+  box-shadow: none;
+  box-shadow: none;
+  height: 3rem;
+  margin: 0;
+  padding: 5px 0px 1.5px 0px;
+  width: 3rem;
+}
+.imgPlus{
+  height: 0.9rem;
+  margin-bottom: 4px;
+  width: 0.9rem; 
+}
+.inputMessage{  
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-left: 1px solid rgb(200, 200, 200) ;
+  border-top: 1px solid rgb(200, 200, 200) ;
+  border-bottom: 1px solid rgb(200, 200, 200) ;
+  border-right: none;
+  border-left: none;  
+  background-color: rgb(255, 255, 255);
+  color: rgb(159, 163, 167);
+  font-size: 16px;
+  font-family: "Open Sans";
+  height: 3rem;
+  margin: 0;
+  outline: none;
+  padding: 6px 10px 6px 10px;
+  width: 87%;
+}
+.buttonSmile{
+  background-color: rgb(255, 255, 255);
+  border-radius: 5px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border-right: 1px solid rgb(200, 200, 200) ;
+  border-top: 1px solid rgb(200, 200, 200) ;
+  border-bottom: 1px solid rgb(200, 200, 200) ;
+  border-left: none;  
+  box-shadow: none;
+  height: 3rem;
+  margin: 0;
+  padding: 6px 0px 1.5px 0px;
+  width: 3rem;
+}
+.imgSmile{
+  height: 1.5rem;
+  margin-bottom: 4px;
+  width: 1.5rem; 
+}
+.main__center{
+  background-color: $main-center__background;
+}
+.footer__center{
+  background-color: $footer-right__background;
+  height:  8.1vh;
+  border-top: 1px solid rgb(231, 231, 231)
+}

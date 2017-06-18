@@ -1,0 +1,32 @@
+$height72: calc(100vh - 72px);
+$height144: calc(100vh - 144px);
+
+.listContainer {
+  height: $height72;
+  background-color: #f9f9f9;
+}
+.listContainer > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.listContainer > ul > li {
+  list-style: none;
+  margin: 0;
+  padding-left: 3.5rem;
+  border: 1px solid #E6E6E6;
+  background-color: #f9f9f9;
+  line-height: 5rem;
+}
+.listArrow {
+  color: black;
+  position: absolute;
+  left: 85%;
+  // transform: rotate(270deg);
+}
+
+@media only screen and (max-width: 990px) {
+    .details {
+        display: none;
+    }
+}

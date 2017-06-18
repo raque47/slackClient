@@ -1,0 +1,39 @@
+.message{
+  margin: 2rem 0 2rem 0;
+  display: inline-flex;
+}
+.imgMessage{
+  border-radius: 50%;
+}
+.messageTitle{
+	display: inline-flex;
+}
+.name__style{
+	font-size: 15.251px;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  color: rgb(44, 43, 44);
+  font-weight: bold;
+  text-align: left;
+}
+.time__style{
+	font-size: 12.66px;
+  font-family: "Open Sans";
+  color: rgb(100, 100, 100);
+  text-align: left;
+	margin: 10px;
+}
+.p__style{
+	font-size: 16px;
+  font-family: "Open Sans";
+  color: rgb(65, 65, 66);    
+}
+
+.container-fluid {
+    padding-right: 30px;
+}
+
+
+.row:after {
+
+    height: 0vh;
+}

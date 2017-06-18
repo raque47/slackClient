@@ -1,0 +1,139 @@
+
+.body{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+.navBarChat{
+    height: 72px;
+    padding: 0;
+    box-shadow: 0 6px 33px rgba(21, 15, 24, 0.15);
+    background-color: #f5f5f5;
+    display: flex; 
+    flex-direction: row; 
+    align-items: center;
+    justify-content: space-between;
+    .col-md-3 {
+        padding: 0;
+    }
+    .col-md-7 {
+        padding: 0;
+    }
+}
+
+.navBarContainer{
+    .col-md-10 {
+        padding: 0;
+    }
+}
+.navBarLeft{
+    width: 70%;
+    height: 72px;
+    padding: 0;
+    display: flex; 
+    flex-direction: row; 
+    align-items: center;
+}
+
+.navBarRight{
+    width: 30%;
+    height: 72px;
+    padding: 0;
+    display: flex; 
+    flex-direction: row; 
+    align-items: center;
+}
+
+.titleNavBarLeft{
+    color: #2c2b2c;
+    font-family: "Helvetica Neue";
+    font-size: 15.251px;
+    font-weight: 700;
+    line-height: 13.5px;
+    margin: 0 0 0 30px;
+}
+
+.imageNavBarLeft{
+    margin-left:20px;
+}
+
+.starImage, .pinImage{
+    width: 13px;
+    height: 12px;
+}
+
+.userImage{
+    width: 12px;
+    height: 13px;
+}
+
+.addImage{
+    width: 13px;
+    height: 13px;
+}
+
+.textNavBarLeft{
+    margin: 0 0 0 6px;
+    color: #646464;
+    font-family: "Open Sans";
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 19px;
+}
+
+.imageNavBarRight{
+    margin: 0 0 0 26px;
+}
+
+.callImage{
+    width: 16px;
+    height: 16px;
+}
+
+.settingsImage{
+    width: 18px;
+    height: 16px;
+}
+
+.filesImage{
+    width: 16px;
+    height: 17px;
+}
+
+.searchInputContainer { 
+    width:  45.56213018%;
+    position:relative; 
+    padding:0; 
+    margin:0; 
+    height: 31px;
+}
+.searchInputNavBar{
+    width: 100%;
+    height: 31px;
+    border-radius: 5px;
+    border: 1px solid #c8c8c8;
+    background-color: #ffffff;
+    margin:0; 
+    padding-left: 10px; 
+}
+
+
+
+.searchInputImage { 
+    position:absolute; 
+    bottom:8px; 
+    left:10px; 
+    width:12px; 
+    height:12px; 
+    margin-right: 0.3rem;
+}
+
+.searchInputSpan{
+    position: absolute;
+    bottom: 0px;
+    left: 30px;
+    color: #a5a5a5;
+    font-family: "Helvetica Neue";
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 27px;
+}
