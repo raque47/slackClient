@@ -1,27 +1,19 @@
-import React from 'react';
-import { render } from 'react-dom';
-import AppContainer from '../../containers/app-container';
-import {  BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
-import LoginContainer from '../../containers/login-container'
-import ChatContainer from '../../containers/ChatContainer'
+import React, { Component } from 'react';
 
-
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
+class App extends Component {  
   render() {
     return (
-      <Router>
-        <div className='container-fluid'>
-          <div className='row' id='mainView'>
-             <Route path='/' component={ ChatContainer } />
-          </div>
-        </div>
-      </Router>
+      <div>
+      <p>Header here</p>
+
+      <div className="container">
+        {this.props.children}
+      </div>
+
+      <p>Footer here</p>
+      </div>
     );
   }
-};
+}
 
-render(<App />, document.getElementById('app'));
+export default App;  

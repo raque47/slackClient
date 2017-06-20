@@ -7,12 +7,12 @@ const webpack = require('webpack');
 module.exports = {
   context: path.join(__dirname, '/src'),
   entry: {
-    javascript: './components/app/app.jsx',
+    javascript: './app.jsx',
   },
   devtool: 'source-map',
   output: {
+    path: path.join(__dirname, '/src'),
     filename: 'bundle.js',
-    //path: path.join(__dirname, '/dist'),
   },
   devServer: {
     historyApiFallback: true,

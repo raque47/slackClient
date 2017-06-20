@@ -2,6 +2,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import loginStyle from './login.scss';
+import { Field, reduxForm } from 'redux-form';  
 
 class Login extends React.Component {
     constructor(props) {
@@ -9,6 +10,7 @@ class Login extends React.Component {
     }
 
     render() {
+        const { handleSubmit } = this.props;
         return (
             <div className='container-fluid'>
                 <div className='row'>
@@ -51,17 +53,20 @@ class Login extends React.Component {
                         <img src={require(`../../images/logoModal.png`)} className="imageLogoModal" />
                         <div className="textModal">Sign in</div>
                     </div>
-
+  
                     <div className="containerInputsModal">
-                        <div className="inputRectangleUser">
-                            <input className="rectangleInputUser"></input>
-                        </div>
-                        <div className="inputRectangle">
-                            <input className="rectangleInput"></input>
-                            <div className="rectangleSubmitArrow">
-                                <img src={require(`../../images/loginarrow.svg`)} className="arrowSubmit" />
+                        <form onSubmit={handleSubmit(this.props.handleFormSubmit.bind(this))}>
+                        {this.props.renderAlert()}
+                            <div className="inputRectangleUser">
+                                 <Field name="email" className="rectangleInputUser" component="input" type="text" placeholder="Enter your email"/>
                             </div>
-                        </div>
+                            <div className="inputRectangle">
+                                 <Field name="password" className="rectangleInput" component="input" type="password" placeholder="Entrer your password" />
+                                <div className="rectangleSubmitArrow">
+                                    <img src={require(`../../images/loginarrow.svg`)} className="arrowSubmit" />
+                                </div>
+                            </div>
+                        </form>
 
                         <div className="informationText">
                         </div>

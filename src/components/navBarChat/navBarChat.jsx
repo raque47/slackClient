@@ -26,11 +26,9 @@ class NavBarChat extends React.Component {
                         </div>
                         <div className='navBarRight'>
                             <div className='searchInputContainer'>
-                                <input type='text' className='searchInputNavBar' name='srch-term'/>
+                                <input type='text' className='searchInputNavBar' name='srch-term' placeholder='Search'/>
                                 <img src={require(`../../images/search.svg`)} className='searchInputImage'/>
-                                <span className='searchInputSpan'>Search</span>
                             </div>
-
                             <img src={require(`../../images/call.svg`)} className='imageNavBarRight callImage' />
                             <img src={require(`../../images/settings.svg`)} className='imageNavBarRight settingsImage' />
                             <img src={require(`../../images/files.svg`)} className='imageNavBarRight filesImage' />

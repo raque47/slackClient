@@ -13,7 +13,7 @@ class Chat extends React.Component {
       <div className='col-md-7 '>
         <main className='main__position'>
           <div className='row'>
-            <div className='col-md-12 main main__center mainChat'>
+            <div className='col-md-12 main main__center mainChat scrollbar' id='style-1'>
               <Messages />
             </div>
           </div>
@@ -27,7 +27,7 @@ class Chat extends React.Component {
                 </button>
                 <input className='inputMessage' type='text' placeholder='Message' />
                 <button className='buttonSmile' href='#' id='' >
-                  <img className='imgSmile'  src={require(`../../images/smile.svg`)} />
+                  <img className='imgSmile' src={require(`../../images/smile.svg`)} />
                 </button>
               </div>
             </div>
@@ -37,5 +37,5 @@ class Chat extends React.Component {
     );
   }
 }
-export default Chat;  
+export default Chat;
 
