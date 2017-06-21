@@ -10,6 +10,8 @@ class DateMessage extends React.Component {
     };
   }
   render() {
+    console.log('****LLEGUE A DONDE LOS VOY A MOSTRAR LOS TENGO????');
+    console.log(this.props.allCurrentMessages );
     return (
       <div className='row'>
         <div className='col-md-2 col-md-offset-5'>
@@ -17,12 +19,30 @@ class DateMessage extends React.Component {
             Today
           </h2>
         </div>
-        <div className='col-md-12'>
-          <Message />
+        <div className='col-md-12'>         
+          {this.props.allCurrentMessages !== undefined && this.props.allCurrentMessages !== null ?
+            this.props.allCurrentMessages.allCurrentMessages !== undefined ?
+              this.props.allCurrentMessages.allCurrentMessages
+                .map((message) => (
+                  console.log(message),
+                  console.log(message.content),
+                  <Message
+                    key={message._id}
+                    content={message.content}
+                    idReceiver = {message.idReceiver}
+                    date= {message.hour}
+                    userEmisor= {message.idTransmitter}
+                  />
+                ))
+              :
+              null
+            :
+            null
+          }
         </div>
       </div>
     );
   }
 }
-export default DateMessage;  
+export default DateMessage;
 

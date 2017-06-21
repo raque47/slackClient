@@ -2,11 +2,19 @@ import React from 'react';
 import './mainChat.scss';
 import Messages from '../dateMessagesChat/dateMessageChat';
 import '../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss';
-class Chat extends React.Component {
+class MainChat extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
     };
+    this.onHandleKeyPress = this.onHandleKeyPress.bind(this);
+  }
+  onHandleKeyPress(event) {
+    if (event.key === 'Enter') {
+      const newMessage = event.currentTarget.value;
+      this.props.sendNewMessage(newMessage);
+      event.currentTarget.value = '';
+    }
   }
   render() {
     return (
@@ -14,7 +22,9 @@ class Chat extends React.Component {
         <main className='main__position'>
           <div className='row'>
             <div className='col-md-12 main main__center mainChat scrollbar' id='style-1'>
-              <Messages />
+              <Messages
+                allCurrentMessages={this.props.allCurrentMessages}
+                userEmisor={this.props.userEmisor} />
             </div>
           </div>
         </main>
@@ -25,7 +35,7 @@ class Chat extends React.Component {
                 <button className='buttonPlus' href='#' id='' >
                   <img className='imgPlus' src={require(`../../images/plus.svg`)} />
                 </button>
-                <input className='inputMessage' type='text' placeholder='Message' />
+                <input className='inputMessage' ref='form' onKeyDown={this.onHandleKeyPress} type='text' placeholder='Message' />
                 <button className='buttonSmile' href='#' id='' >
                   <img className='imgSmile' src={require(`../../images/smile.svg`)} />
                 </button>
@@ -37,5 +47,6 @@ class Chat extends React.Component {
     );
   }
 }
-export default Chat;
 
+
+export default MainChat;

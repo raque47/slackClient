@@ -34,11 +34,10 @@ class AppContainer extends React.Component {
         console.log('Entre a componentWILLMount');
         socket = io.connect('http://localhost:3000');
     }
-    addUserLogged() {
-        //socket.on('connect', function () {
-        //call the server-side function 'adduser' and send value of userLogged)
-        socket.emit('adduser', this.state.userLogged);
-        // })
+    addUserLogged(/*id*/) {
+        //socket.emit('adduser', this.state.userLogged);
+        //** socket.emit('adduser', id);
+        //this.props.getChats(id, this.props.userData.userData._id);
     }
     updateChat() {
         // listener, whenever the server emits 'updatechat', this updates the chat body

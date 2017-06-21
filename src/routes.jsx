@@ -2,11 +2,9 @@ import React from 'react';
 import { BrowserRouter as Router, Route, IndexRoute, Switch } from 'react-router-dom';
 
 import AppContainer from './containers/app-container';
-
 import NotFoundPage from './components/pageNotFound/pageNotFound';
-import LoginContainer from './containers/login-container'
+import LoginContainer from './containers/LoginContainer'
 import ChatContainer from './containers/ChatContainer'
-
 // import Register from './components/register/register';   
 // import RequireAuth from './components/auth/require-auth';
 

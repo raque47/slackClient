@@ -9,7 +9,6 @@ export default function (state = INITIAL_STATE, action) {
         case GET_ALL_USERS:
             return state;
         case SET_ALL_USERS:
-            console.log('entteee');
             return Object.assign({}, state, { allUsers: action.allUsers });
         default:
             return state;
