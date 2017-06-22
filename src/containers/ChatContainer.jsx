@@ -5,7 +5,6 @@ import io from 'socket.io-client';
 import axios from 'axios';
 import Chat from '../components/chat/chat';
 import appStyle from '../components/app/_app.scss';
-
 import Cookies from 'universal-cookie';
 import store from '../store';
 import { SET_USER, SET_OTHER_USER_ID } from '../actions/types';
@@ -14,7 +13,8 @@ import { fetchAllCurrentMessages } from '../actions/index';
 import { fetchMessagesForEveryone } from '../actions/index';
 import { sendNewMessage } from '../actions/index';
 import { changeMessageType } from '../actions/index';
-
+import { updateMessagesFromSocket } from '../actions/index';
+import { getUserSelectedData } from '../actions/index';
 import PropTypes from 'prop-types';
 
 let socket = null;
@@ -44,10 +44,13 @@ class ChatContainer extends React.Component {
         socket.emit('connected', token._id);
         console.log('TOKEN ID ES: ', token._id);
         console.log('USER ID ES: ', this.props.user.user._id);
-
-        socket.on('sendMessage', (username, data, idReceiver, time, id) => {
+    
+        socket.on('sendMessage', (username, content, idReceiver, hour) => {
+            //console('OJOOOOOO AQUI VA DE NUEVO!!!! ');
         });
-
+        socket.on('updateMessages', (username, content, idReceiver, hour) => {
+            this.props.updateMessagesFromSocket(username, content, idReceiver, hour);
+        });
 
     };
     loadAllCurrentMessagesOfChat(userSelectedId) {
@@ -55,9 +58,10 @@ class ChatContainer extends React.Component {
         socket.emit('addUser', userSelectedId);
         this.props.loadAllCurrentMessages(userSelectedId, this.props.user.user._id);
         store.dispatch({
-                type: SET_OTHER_USER_ID,
-                userSelectedId: userSelectedId,
-            });
+            type: SET_OTHER_USER_ID,
+            userSelectedId: userSelectedId,
+        });
+        this.props.getUserSelectedData(userSelectedId);
     };
     sendNewMessage(newMessage) {
         const hour = "10:02";
@@ -66,21 +70,19 @@ class ChatContainer extends React.Component {
         console.log('Mensaje: ', this.props.user, newMessage, hour);
         console.log('Personal o grupal???  ');
         console.log(store.getState().allCurrentMessages.messageType);
-        if ( store.getState().allCurrentMessages.messageType === 'personal') {
+        //IF THE MESSAGE IS A PERSONAL MESSAGE
+        if (store.getState().allCurrentMessages.messageType === 'personal') {
             console.log('OJO A ESTE QUE NO SE NULL ');
             console.log(store.getState().user.userSelectedId);
-             //console.log(this.props.userSelectedId);
             this.props.sendNewMessage(this.props.user.user._id, newMessage, store.getState().user.userSelectedId, hour, socket);
-            
         }
-        else {
+        else { //IF THE MESSAGE IS A GRUPAL MESSAGE (CHATROOM)
+            socket.emit('subscribe', 'General'); 
             this.props.sendNewMessage(this.props.user.user._id, newMessage, '00', hour, socket);
         }
     };
-
     render() {
-        const { allUsers, allCurrentMessages, user, userSelected,userSelectedId, messageType } = this.props;
-
+        const { allUsers, allCurrentMessages, user, userSelected, userSelectedId, messageType } = this.props;
         return (
             <Chat
                 allUsers={allUsers}
@@ -136,6 +138,8 @@ const mapDispatchToProps = dispatch => {
         fetchMessagesForEveryone: (userEmisor) => dispatch(fetchMessagesForEveryone(userEmisor)),
         sendNewMessage: (username, content, idReceiver, hour, soket) => dispatch(sendNewMessage(username, content, idReceiver, hour, soket)),
         changeMessageType: (typeOfMessage) => dispatch(changeMessageType(typeOfMessage)),
+        updateMessagesFromSocket: (username, content, idReceiver, hour) => dispatch(updateMessagesFromSocket(username, content, idReceiver, hour) ),
+        getUserSelectedData:(userSelectedId) => dispatch(getUserSelectedData(userSelectedId) ),
     };
 };
 

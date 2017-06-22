@@ -9,32 +9,42 @@ class AsideDirectory extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {ready: false}
+    this.state = { ready: false }
     this.onHandleClickChat = this.onHandleClickChat.bind(this);
   }
-  onHandleClickChat(event){
+  onHandleClickChat(event) {
     this.props.loadAllCurrentMessagesOfChat(event.target.id);
     console.log(event.target.id);
-    { store.dispatch({ 
-      type: SET_MESSAGES_TYPE, 
-      messageType: 'personal',
-     }); }
+    {
+      store.dispatch({
+        type: SET_MESSAGES_TYPE,
+        messageType: 'personal',
+      });
+    }
+  }
+  onHandleClickGeneral(event) {
+    {
+      store.dispatch({
+        type: SET_MESSAGES_TYPE,
+        messageType: 'room',
+      });
+    }
   }
   render() {
-        console.log('VVOYA A RENDEREAR!!!');
+    console.log('VVOYA A RENDEREAR!!!');
     if (store.getState().allUsers.allUsers.length > 1) {
       this.state.ready = true;
     } else {
       this.state.ready = false;
     }
-        console.log('VVOYA A RENDEREAR!!!' + this.state.ready );
+    console.log('VVOYA A RENDEREAR!!!' + this.state.ready);
     return (
       <div className='aside col-md-2'>
         <div className='row'>
           <header className='col-md-12 header'>
             <div className='header-content aside-margin-left'>
               <span className='white-text'>Konrad Group</span>
-              <span className='user-status online'> { ( this.state.ready ? store.getState().user.user.firstName : <div />)} </span>
+              <span className='user-status online'> {(this.state.ready ? store.getState().user.user.firstName : <div />)} </span>
             </div>
           </header>
           <div className='col-md-12 body'>
@@ -44,10 +54,8 @@ class AsideDirectory extends React.Component {
                 <a><span className='channels-options'>ALL THREADS</span></a>
                 <a><span className='channels-options'>CHANNELS</span></a>
                 <div className='channels'>
-                  <a><span className='channel'>Channel 1</span> </a>
-                  <a><span className='channel'>Channel 1</span> </a>
-                  <a><span className='channel'>Channel 1</span> </a>
-                  <a><span className='channel'>Channel 1</span> </a>
+                  <a onClick={this.onHandleClickGeneral}><span className='channel'>General</span> </a>
+                  <a><span className='channel'>Channel 2</span> </a>
                 </div>
               </div>
               <div className='direct-messages'>

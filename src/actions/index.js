@@ -39,15 +39,10 @@ function setUser(user) {
     return { type: SET_USER, user: user };
 }
 export function loginUser({ email, password }) {
-    console.log('entreeeeee');
-    console.log(email);
-    console.log(password);
-    //console.log(email.email + ' ' +password );
     return function (dispatch) {
         axios
             .post(`${API_URL}/auth/login`, { email, password })
             .then((response) => {
-                console.log('YOOO');
                 dispatch({
                     type: 'SET_USER',
                     user: response.data.user
@@ -114,9 +109,9 @@ export function fetchAllCurrentMessages(idUserEmisor, idUserSelected) {
             .then((response) => {
                 response.data.map((message) =>
                     (
-                        console.log('Message iterando: ', message),
-                        console.log('Message idEmisor: ', message.idTransmitter),
-                        console.log('Message idReceptot:', message.idReceiver),
+                        // console.log('Message iterando: ', message),
+                        // console.log('Message idEmisor: ', message.idTransmitter),
+                        // console.log('Message idReceptot:', message.idReceiver),
                         ((message.idTransmitter === idUserEmisor && message.idReceiver === idUserSelected) ||
                             (message.idTransmitter === idUserSelected && message.idReceiver === idUserEmisor)) ?
                             (messagesFiltered.push(message),
@@ -164,7 +159,6 @@ export function fetchMessagesForEveryone(idUserEmisor) {
     }
 }
 
-
 //here receives 'idReceiver = '00' if it is a message for everyone and not 
 //just for an especific user/reiver
 export function sendNewMessage(username, content, idReceiver, hour, socket) {
@@ -182,15 +176,26 @@ export function sendNewMessage(username, content, idReceiver, hour, socket) {
                     console.log('NUEVO MENSAJEEEEE!!!!!! ', response.data);
                     dispatch({
                         type: 'UPDATE_MESSAGE',
-                        allCurrentMessages : message,
+                        allCurrentMessages: message,
                     });
-
                 }),
         ]).then(() => {
             console.log('LUEGO DE LA PROMESA')
-        })  
+        })
         console.log('wii mensaje final NUEVO MENSAJE AGREGADO: ', message);
     }
+}
+
+export function updateMessagesFromSocket(idTransmitter, content, idReceiver, hour) {
+    return function (dispatch) {
+        console.log('USERNAME: ', idTransmitter, 'OTROs: ', content, hour);
+        const message = {'content': content, 'idTransmitter': idTransmitter, 'idReceiver': idReceiver, 'hour': hour };
+        console.log('Message', message);
+        dispatch({
+            type: UPDATE_MESSAGE,
+            allCurrentMessages: message,
+        });
+    };
 }
 
 //changes the state for the type of message: if is a personal message or a grupal message
@@ -204,6 +209,21 @@ export function changeMessageType(typeOfMessage) {
     };
 }
 
+
+export function getUserSelectedData(userSelectedId){
+    return function (dispatch) {
+        axios.get(`${API_URL_ROUTES}/messages/${userSelectedId}`)
+            .then((response) => {
+                dispatch({
+                    type: 'SET_USER_SELECTED',
+                    userSelected: messagesForEveryone
+                });
+            }
+            )
+        console.log('Traeer ID');
+    
+    }
+}
 
 // export function registerUser({ email, firstName, lastName, password }) {
 //     return function (dispatch) {
@@ -225,21 +245,4 @@ export function changeMessageType(typeOfMessage) {
 //         cookie.remove('token', { path: '/' });
 //         window.location.href = CLIENT_ROOT_URL + '/login';
 //     }
-// }
-
-// export function protectedTest() {  
-//   return function(dispatch) {
-//     axios.get(`${API_URL}/protected`, {
-//       headers: { 'Authorization': cookie.load('token') }
-//     })
-//     .then(response => {
-//       dispatch({
-//         type: PROTECTED_TEST,
-//         payload: response.data.content
-//       });
-//     })
-//     .catch((error) => {
-//       errorHandler(dispatch, error.response, AUTH_ERROR)
-//     });
-//   }
 // }
