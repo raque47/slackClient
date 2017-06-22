@@ -1,12 +1,12 @@
 import React from 'react';
 import './mainChat.scss';
 import Messages from '../dateMessagesChat/dateMessageChat';
+import store from '../../store';
 import '../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss';
 class MainChat extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-    };
+    this.state = { type: ''  };
     this.onHandleKeyPress = this.onHandleKeyPress.bind(this);
   }
   onHandleKeyPress(event) {
@@ -17,6 +17,14 @@ class MainChat extends React.Component {
     }
   }
   render() {
+
+    if (store.getState().allCurrentMessages.messageType === 'personal') {
+       this.state.type = 'personal';
+       console.log('!!PEEERRSSOOONAAALLLLL!!');
+    } else {
+       this.state.type = 'general';
+       console.log('!!GENERAAAALLLL!!');
+    } //HACER ABAJO IF this.state.type es tal if ternario vector es igual al correspondiene
     return (
       <div className='col-md-7 '>
         <main className='main__position'>
@@ -24,6 +32,7 @@ class MainChat extends React.Component {
             <div className='col-md-12 main main__center mainChat scrollbar' id='style-1'>
               <Messages
                 allCurrentMessages={this.props.allCurrentMessages}
+                allMessagesForEveryone={this.props.allMessagesForEveryone}
                 userEmisor={this.props.userEmisor} />
             </div>
           </div>

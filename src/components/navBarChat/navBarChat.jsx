@@ -2,6 +2,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import navBarStyle from './_navBar.scss';
+import store from '../../store';
 import '../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss';
 class NavBarChat extends React.Component {
     constructor(props) {
@@ -13,8 +14,8 @@ class NavBarChat extends React.Component {
                   <div className='col-md-10'>
                     <div className='navBarChat'>
                         <div className='navBarLeft'>
-                            <div className='title'>
-                                <h3 className='titleNavBarLeft'>Channel#2</h3>
+                            <div className='title'>  
+                                <h3 className='titleNavBarLeft'>{(store.getState().user.dataOfUserSelected.profile !== undefined ?  store.getState().user.dataOfUserSelected.profile.firstName : <div />)} </h3>
                             </div>
                             <div className='images'>
                                 <img src={require(`../../images/star.svg`)} className='imageNavBarLeft starImage' />

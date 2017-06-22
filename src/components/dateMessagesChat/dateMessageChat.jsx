@@ -20,7 +20,8 @@ class DateMessage extends React.Component {
           </h2>
         </div>
         <div className='col-md-12'>         
-          {this.props.allCurrentMessages !== undefined && this.props.allCurrentMessages !== null ?
+          {
+            this.props.allCurrentMessages !== undefined && this.props.allCurrentMessages !== null ?
             this.props.allCurrentMessages.allCurrentMessages !== undefined ?
               this.props.allCurrentMessages.allCurrentMessages
                 .map((message) => (

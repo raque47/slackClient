@@ -186,6 +186,35 @@ export function sendNewMessage(username, content, idReceiver, hour, socket) {
     }
 }
 
+//here receives 'idReceiver = '00' if it is a message for everyone and not 
+//just for an especific user/reiver
+export function sendNewMessageBroadcast(username, content, hour, socket) {
+    console.log('ESTOY sendMessage ROOOMMM');
+    console.log('socket: ', socket);
+    return function (dispatch) {
+        const message = { 'content': content, 'idTransmitter': username, 'idReceiver': '00', 'hour': hour };
+        Promise.all([
+            axios.post(API_URL_ROUTES + '/messages', message)
+                .then((response) => {
+                    console.log('Post MESSAGE a mongo ', message);
+                    let data = { username, content, idReceiver, hour};
+                    console.log(data);
+                    socket.emit('send', data);
+                    //actualizar la pantalla y los mensajes
+                    console.log('NUEVO MENSAJEEEEE!!!!!! ', response.data);
+                    dispatch({
+                        type: 'UPDATE_MESSAGE',
+                        allCurrentMessages: message,
+                    });
+                }),
+        ]).then(() => {
+            console.log('LUEGO DE LA PROMESA')
+        })
+        console.log('wii mensaje final NUEVO MENSAJE AGREGADO: ', message);
+    }
+}
+
+
 export function updateMessagesFromSocket(idTransmitter, content, idReceiver, hour) {
     return function (dispatch) {
         console.log('USERNAME: ', idTransmitter, 'OTROs: ', content, hour);
@@ -212,18 +241,28 @@ export function changeMessageType(typeOfMessage) {
 
 export function getUserSelectedData(userSelectedId){
     return function (dispatch) {
-        axios.get(`${API_URL_ROUTES}/messages/${userSelectedId}`)
+        axios.get(`${API_URL_ROUTES}/users/${userSelectedId}`)
             .then((response) => {
-                dispatch({
-                    type: 'SET_USER_SELECTED',
-                    userSelected: messagesForEveryone
-                });
-            }
-            )
-        console.log('Traeer ID');
-    
+                console.log(response.data);
+                dispatch({ type: 'SET_USER_SELECTED', dataOfUserSelected: response.data });
+            })
+            .catch(error => console.log('Axios error: ', error));
     }
 }
+
+
+export function getUserEmisorData(userId){
+    return function (dispatch) {
+        axios.get(`${API_URL_ROUTES}/users/${userId}`)
+            .then((response) => {
+                console.log(response.data);
+                dispatch({ type: 'SET_USER_SELECTED', dataOfUserEmisor: response.data });
+            })
+            .catch(error => console.log('Axios error: ', error));
+    }
+}
+
+
 
 // export function registerUser({ email, firstName, lastName, password }) {
 //     return function (dispatch) {

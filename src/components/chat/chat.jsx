@@ -16,9 +16,17 @@ class Chat extends React.Component {
   render() {
     return (
       <div className='row home'>
-        <AsideDirectory allUsers={this.props.allUsers} user={this.props.user} loadAllCurrentMessagesOfChat={this.props.loadAllCurrentMessagesOfChat} directoryReady={this.props.directoryReady} />
+        <AsideDirectory 
+          allUsers={this.props.allUsers} 
+          user={this.props.user} 
+          loadAllCurrentMessagesOfRoom = {this.props.loadAllCurrentMessagesOfRoom} 
+          loadAllCurrentMessagesOfChat={this.props.loadAllCurrentMessagesOfChat} 
+          directoryReady={this.props.directoryReady} />
         <NavBarChat />
-        <MainChat allCurrentMessages={this.props.allCurrentMessages} sendNewMessage={this.props.sendNewMessage} />
+        <MainChat 
+          allCurrentMessages={this.props.allCurrentMessages} 
+          allMessagesForEveryone ={this.props.allMessagesForEveryone}
+          sendNewMessage={this.props.sendNewMessage} />
         <AsideChannelDetails />
       </div>
     );

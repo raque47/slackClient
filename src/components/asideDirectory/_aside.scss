@@ -100,7 +100,7 @@ $brand-green: #20a766;
     color: white;
     font-size: 1rem;
     font-weight: bold;
-    font-size: 1.52rem;
+    font-size: 15px;
   }
   
   .user-status{
@@ -119,6 +119,16 @@ $brand-green: #20a766;
       width: 6px;
     }
   }
+  .user-status:hover{
+    border-radius: 6px;
+    color: #555459; //o	96889B
+    background-color: transparent;
+  }
+  .user-status:focus{
+    background-color: #4C9689;
+    color:white;
+    border-radius: 8px;
+  }
   .online::before{
     background: $brand-green;
   }
@@ -128,8 +138,31 @@ $brand-green: #20a766;
     background: transparent;
     border: 1px solid #dbd0df;
   }
-
-
+  .online::before:hover{
+    background: $brand-green;
+        border-radius: 6px;
+    color: #555459; //o	96889B
+    background-color: transparent;
+  }
+  .offline::before:hover{
+    height: 7px;
+    width: 7px;
+    background: transparent;
+    border: 1px solid #dbd0df;
+        border-radius: 6px;
+    color: #555459; //o	96889B
+    background-color: transparent;
+  }
+    .online::before:active{
+    background-color: #4C9689;
+    color:white;
+    border-radius: 8px;
+  }
+  .offline::before:active{
+    background-color: #4C9689;
+    color:white;
+    border-radius: 8px;
+  }
   .footer{
     height: 72px;
     display: flex;

@@ -15,6 +15,7 @@ import { sendNewMessage } from '../actions/index';
 import { changeMessageType } from '../actions/index';
 import { updateMessagesFromSocket } from '../actions/index';
 import { getUserSelectedData } from '../actions/index';
+import {getUserEmisorData} from '../actions/index'
 import PropTypes from 'prop-types';
 
 let socket = null;
@@ -26,6 +27,7 @@ class ChatContainer extends React.Component {
             directoryReady: false,
         }
         this.loadAllCurrentMessagesOfChat = this.loadAllCurrentMessagesOfChat.bind(this);
+        this.loadAllCurrentMessagesOfRoom = this.loadAllCurrentMessagesOfRoom.bind(this);
         this.sendNewMessage = this.sendNewMessage.bind(this);
     };
     componentDidMount() {
@@ -63,6 +65,9 @@ class ChatContainer extends React.Component {
         });
         this.props.getUserSelectedData(userSelectedId);
     };
+    loadAllCurrentMessagesOfRoom(){
+        this.props.fetchMessagesForEveryone(this.props.user.user._id);
+    }
     sendNewMessage(newMessage) {
         const hour = "10:02";
         console.log('new message!');
@@ -82,17 +87,20 @@ class ChatContainer extends React.Component {
         }
     };
     render() {
-        const { allUsers, allCurrentMessages, user, userSelected, userSelectedId, messageType } = this.props;
+        const { allUsers, allCurrentMessages,allMessagesForEveryone, user, userSelected, userSelectedId, messageType } = this.props;
         return (
             <Chat
                 allUsers={allUsers}
                 allCurrentMessages={allCurrentMessages}
+                allMessagesForEveryone={allMessagesForEveryone}
                 messageType={messageType}
                 user={user}
                 userSelected={userSelected}
                 directoryReady={this.state.directoryReady}
                 loadAllCurrentMessagesOfChat={this.loadAllCurrentMessagesOfChat}
+                loadAllCurrentMessagesOfRoom = {this.loadAllCurrentMessagesOfRoom}
                 sendNewMessage={this.sendNewMessage}
+                getUserEmisorData = {this.props.getUserEmisorData}
             />
         );
     };
@@ -101,12 +109,15 @@ class ChatContainer extends React.Component {
 ChatContainer.propTypes = {
     loadAllUsers: PropTypes.func,
     loadAllCurrentMessages: PropTypes.func,
+    fetchMessagesForEveryone: PropTypes.func,
     allUsers: PropTypes.arrayOf(PropTypes.object),
     allCurrentMessages: PropTypes.arrayOf(PropTypes.object),
     user: PropTypes.object,
     userSelected: PropTypes.object,
     userSelectedId: PropTypes.string,
     messageType: PropTypes.string,
+    dataOfUserSelected : PropTypes.string,
+    dataOfUserEmisor: PropTypes.string,
 };
 
 ChatContainer.defaultProps = {
@@ -115,6 +126,8 @@ ChatContainer.defaultProps = {
     allMessagesForEveryone: [{}],
     user: {},
     userSelected: {},
+    dataOfUserSelected:{},
+    dataOfUserEmisor:{},
     userSelectedId: '',
     setDirectoryReady: false,
     messageType: '',
@@ -129,6 +142,8 @@ const mapStateToProps = (state) => {
         userSelected: state.userSelected,
         userSelectedId: state.userSelectedId,
         messageType: state.messageType,
+        dataOfUserSelected: state.dataOfUserSelected,
+        dataOfUserEmisor: state.dataOfUserEmisor,
     };
 };
 const mapDispatchToProps = dispatch => {
@@ -140,6 +155,7 @@ const mapDispatchToProps = dispatch => {
         changeMessageType: (typeOfMessage) => dispatch(changeMessageType(typeOfMessage)),
         updateMessagesFromSocket: (username, content, idReceiver, hour) => dispatch(updateMessagesFromSocket(username, content, idReceiver, hour) ),
         getUserSelectedData:(userSelectedId) => dispatch(getUserSelectedData(userSelectedId) ),
+        getUserEmisorData:(userEmisorId) => dispatch(getUserEmisorData(userEmisorId) ),
     };
 };
 
