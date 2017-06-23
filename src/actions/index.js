@@ -3,9 +3,9 @@ import store from '../store';
 import Cookies from 'universal-cookie';
 import { AUTH_USER, AUTH_ERROR,UNAUTH_USER, SET_USER,SET_ALL_USERS,SET_FETCH_READY, SET_CHAT,SET_MESSAGE,SET_USER_LOGGED,SET_MESSAGES_FOR_EVERYONE,SET_CURRENT_MESSAGES,SET_MESSAGES_TYPE,UPDATE_MESSAGE, UPDATE_MESSAGE_CHANNELS} from './types';
 
-const API_URL = 'http://localhost:3000/api';
+const API_URL = 'https://agile-journey-45148.herokuapp.com/api';
 const CLIENT_URL = 'http://localhost:8000';
-const API_URL_ROUTES = 'http://localhost:3000/api/routes';
+const API_URL_ROUTES = 'https://agile-journey-45148.herokuapp.com/api/routes';
 
 function setUser(user) {
     console.log('estoy en setUser con el usuario ' + user);
