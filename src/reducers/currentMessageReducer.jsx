@@ -11,8 +11,6 @@ const INITIAL_STATE = {
 export default function (state = INITIAL_STATE, action) {
     switch (action.type) {
         case SET_CURRENT_MESSAGES:
-            console.log('AQUIII VAN AHORA SIIIIIIII');
-            console.log(action.allCurrentMessages);
             return Object.assign({}, state, { allCurrentMessages: action.allCurrentMessages });
         case GET_CURRENT_MESSAGES:
             return state.allCurrentMessages;
@@ -23,11 +21,6 @@ export default function (state = INITIAL_STATE, action) {
         case SET_MESSAGES_TYPE:
             return Object.assign({}, state, { messageType: action.messageType });
         case UPDATE_MESSAGE:
-            //console.log('ENTRE A UPDATE');
-            //console.log('Mensaje nuevo a actualizar ',action.allCurrentMessages)
-            //console.log('Mensajes de state ',state.allCurrentMessages);
-            //[ ...state.allCurrentMessages, action.allCurrentMessages ]; // updating the messages without mutation
-            //console.log('Este tiene q estar cambiado',state.allCurrentMessages);
             const messagesUpdated = state.allCurrentMessages;
             messagesUpdated.push(action.allCurrentMessages);
             return Object.assign({}, state, { allCurrentMessages: messagesUpdated });

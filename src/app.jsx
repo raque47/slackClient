@@ -7,7 +7,7 @@ import reduxThunk from 'redux-thunk';
 import routes from './routes';  
 import reducers from './reducers/index';  
 import store from './store'
-import { AUTH_USER } from './actions/types';
+
 
 const App = () => (
         <Provider store={ store }>

@@ -13,7 +13,6 @@ export default function (state = INITIAL_STATE, action) {
             return Object.assign({}, state, { user: action.user });
         case GET_USER:
             return state;
-
         case SET_USER_LOGGED:
             return Object.assign({}, state, { userLogged: action.userLogged });
         case SET_OTHER_USER_ID:

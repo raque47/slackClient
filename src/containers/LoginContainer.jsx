@@ -34,13 +34,11 @@ class LoginContainer extends React.Component {
 
     render() {
         const { handleSubmit } = this.props;
-
         return (
            <div className='container-fluid'>
                 <div className='row'>
                     <div className='header row'>
                         <div className='col-md-12'>
-
                             <div className="containerElementsNavBar">
                                 <div className="logo">
                                     <img src={require(`../images/logoSlackHeader.png`)} className="imageLogoModal" />
@@ -55,29 +53,22 @@ class LoginContainer extends React.Component {
 
                         </div>
                     </div>
-
                 </div>
                 <div className="row backgroundElemnts">
                     <div className="image-background row">
                         <div className="col-md-12">
-
                         </div>
                     </div>
                     <div className="background row">
                         <div className="col-md-12">
-
                         </div>
                     </div>
-
                 </div>
-
                 <div className="modalLogin">
-
                     <div className="containerLogoModal">
                         <img src={require(`../images/logoModal.png`)} className="imageLogoModal" />
                         <div className="textModal">Sign in</div>
                     </div>
-  
                     <div className="containerInputsModal">
                         <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
                         {this.renderAlert()}
@@ -91,21 +82,14 @@ class LoginContainer extends React.Component {
                                 </button>
                             </div>
                         </form>
-
                         <div className="informationText">
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
-
         );
     }
 }
-
-
 
 
 function mapStateToProps(state) {  
