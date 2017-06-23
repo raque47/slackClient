@@ -103,7 +103,101 @@ $brand-green: #20a766;
     font-size: 15px;
   }
   
-  .user-status{
+  .focus, .notFocus{
+    color: $purple-font-light;
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 15px;
+    &::before{
+      content: "";
+      border-radius: 50%; 
+      display: inline-block;
+      height: 6px;
+      margin-right: 10px;
+      position: relative;
+      top: 8px;
+      width: 6px;
+    }
+  }
+
+
+  //   .user-status:focus{
+  //   color:  #4C9689;
+  //     background-color: #4C9689;
+  //   &::before:focus{
+  //   color:  #4C9689;
+  //     background-color: #4C9689;
+  //   }
+  // }
+  
+  .focus:hover{  //
+    border-radius: 6px;
+    color: #555459; //o	96889B
+    background-color: transparent;
+  }
+    .notFocus:hover{  //
+    border-radius: 6px;
+    color: #555459; //o	96889B
+    background-color: transparent;
+  }
+
+  .offline::before{
+    height: 7px;
+    width: 7px;
+    background: transparent;
+    border: 1px solid #dbd0df;
+  }
+  .focus::before:hover{
+    background: $brand-green;
+        border-radius: 6px;
+    color: #555459; //o	96889B
+    background-color: transparent;
+  }
+  .offline::before:hover{
+    height: 7px;
+    width: 7px;
+    background: transparent;
+    border: 1px solid #dbd0df;
+        border-radius: 6px;
+    color: #555459; //o	96889B
+    background-color: transparent;
+  }
+    .notFocus::before:hover{
+    background: $brand-green;
+        border-radius: 6px;
+    color: #555459; //o	96889B
+    background-color: transparent;
+  }
+    .focus::before:active{
+    background-color: #4C9689;
+    color:white;
+    border-radius: 8px;
+  }
+  .focus::before:active{
+    background-color: #4C9689;
+    color:white;
+    border-radius: 8px;
+  }
+  .footer{
+    height: 72px;
+    display: flex;
+    align-items: center;
+    background-color: $brand-color-darker;
+    span{
+      font-weight: 400;
+    }
+    .search-icon{
+      height: 14px;
+      width: 14px;
+      margin: 4px 4px 0 0;
+    }
+  }
+
+}
+
+//user-status online
+
+.user-status{
     color: $purple-font-light;
     font-size: 14px;
     font-weight: 400;
@@ -163,23 +257,19 @@ $brand-green: #20a766;
     color:white;
     border-radius: 8px;
   }
-  .footer{
-    height: 72px;
-    display: flex;
-    align-items: center;
-    background-color: $brand-color-darker;
-    span{
-      font-weight: 400;
-    }
-    .search-icon{
-      height: 14px;
-      width: 14px;
-      margin: 4px 4px 0 0;
-    }
+
+  .name-letter{
+    font-weight: bold;
+    font-size: 15px;
   }
-
-}
-
+  .focus{
+    background-color: #4C9689;
+    color:white;
+    border-radius: 3px;
+  }
+  .aside .focus, {
+    color: white;
+  }
 
 
     /* Smartphones (portrait & landscape) */

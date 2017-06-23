@@ -66,9 +66,6 @@ class DateMessage extends React.Component {
                 this.props.allCurrentMessages.allMessagesForEveryone !== undefined ?
                   this.props.allCurrentMessages.allMessagesForEveryone
                     .map((message) => (
-                      console.log('ESTOY EN GENERAL'),
-                      console.log(message),
-                      console.log(message.content),
                       <Message
                         key={message._id}
                         content={message.content}

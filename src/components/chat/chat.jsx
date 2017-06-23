@@ -14,8 +14,8 @@ class Chat extends React.Component {
     this.state = {};
   }
   render() {
-        console.log('USER EMISOR this.props.emisor');
-    console.log(this.props.userEmisor);
+    //console.log('USER EMISOR this.props.emisor');
+    //console.log(this.props.userEmisor);
  
     return (
       <div className='row home'>

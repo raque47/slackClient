@@ -1,6 +1,7 @@
 .message{
   margin: 2rem 0 2rem 0;
   display: inline-flex;
+  width: 99%;
 }
 .imgMessage{
   border-radius: 50%;
@@ -38,4 +39,10 @@
 .row:after {
 
     height: 0vh;
+}
+
+.containerOfImage{
+  padding: 0.3rem;
+  width: 39px;
+  height: 39px;
 }

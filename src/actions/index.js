@@ -102,7 +102,7 @@ export function fetchAllMessages() {
 /* Method to get all the messages in the database */
 export function fetchAllCurrentMessages(idUserEmisor, idUserSelected) {
     console.log(idUserEmisor + " y " + idUserSelected);
-    const messagesFiltered = [{}];
+    const messagesFiltered = [];
     let contador = 0;
     console.log(messagesFiltered);
     return function (dispatch) {
@@ -135,7 +135,7 @@ export function fetchAllCurrentMessages(idUserEmisor, idUserSelected) {
 /* Method to get all the messages in the database */
 export function fetchMessagesForEveryone(idUserEmisor) {
     console.log('JUSTIN LLEGO con id emisor :' + idUserEmisor);
-    const messagesForEveryone = [{}];
+    const messagesForEveryone = [];
     console.log(messagesForEveryone);
     return function (dispatch) {
         axios.get(API_URL_ROUTES + '/messages')

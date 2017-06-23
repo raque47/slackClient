@@ -9,12 +9,11 @@ class AsideDirectory extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { ready: false }
+    this.state = { ready: false, userSelected:'' }
     this.onHandleClickChat = this.onHandleClickChat.bind(this);
     this.onHandleClickGeneral = this.onHandleClickGeneral.bind(this);
   }
   onHandleClickChat(event) {
-    console.log('JSJKDSHADJKASHDASKJDHKJASDHKJA',event.target.id);
     this.props.loadAllCurrentMessagesOfChat(event.target.id);
     {
       store.dispatch({
@@ -24,7 +23,7 @@ class AsideDirectory extends React.Component {
     } 
   }
   onHandleClickGeneral(event) {
-    console.log('JUSTTIINN BIEBER');
+    console.log('me estan presioanndo');
     this.props.loadAllCurrentMessagesOfRoom();
     {
       store.dispatch({
@@ -40,12 +39,12 @@ class AsideDirectory extends React.Component {
       this.state.ready = false;
     }
     return (
-      <div className='aside col-md-2'>
+      <div className='aside col-md-2 col-sm-4 col-xs-4 '>
         <div className='row'>
           <header className='col-md-12 header'>
             <div className='header-content aside-margin-left'>
               <span className='white-text'>Konrad Group</span>
-              <span className='user-status online'> {(this.state.ready ? store.getState().user.user.firstName : <div />)} </span>
+              <span className='name-letter user-status online'> {(this.state.ready ? store.getState().user.user.firstName : <div />)} </span>
             </div>
           </header>
           <div className='col-md-12 body'>
@@ -65,12 +64,12 @@ class AsideDirectory extends React.Component {
                   store.getState().allUsers.allUsers
                     .map((user) => (
                       //console.log('user id de seleccionado '+ user._id),
-                      <a key={user._id} onClick={this.onHandleClickChat}>
-                        <span className='user-status online' id={user._id} >
-                          {user.profile.firstName}
-                        </span>
+                      <a key={user._id} onClick={this.onHandleClickChat} >
+                        <span className= {(store.getState().user.userSelectedId=== user._id) ? 'focus online':'notFocus online'}  id={user._id} >  
+                          {user.profile.firstName}  
+                        </span>   
                       </a>))
-                  : <div />)}
+                  : '')}  
 
               </div>
             </div>

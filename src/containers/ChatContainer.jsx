@@ -51,7 +51,7 @@ class ChatContainer extends React.Component {
         });
         socket.on('updateMessages', (username, content, idReceiver, hour) => {
             this.props.updateMessagesFromSocket(username, content, idReceiver, hour);
-        
+
         });
         socket.on('updateMessagesBroadcast', (username, content, idReceiver, hour, channel) => {
             this.props.updateMessagesBroadcastFromSocket(username, content, idReceiver, hour, channel);
@@ -72,12 +72,18 @@ class ChatContainer extends React.Component {
         this.props.fetchMessagesForEveryone(this.props.user.user._id);
     }
     sendNewMessage(newMessage) {
-        const hour = "10:02";
+        const date = new Date();
+        //const day = date.getDate();
+        //const month = date.getMonth()+1;
+        //const year = date.getFullYear();
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+        const hour = `${hours}:${minutes}`;
         //IF THE MESSAGE IS A PERSONAL MESSAGE
         if (store.getState().allCurrentMessages.messageType === 'personal') {
             console.log('ESTOY EN PERSONAL CON ');
-            console.log('emisor: ',this.props.user.user._id );
-            console.log('receptor: ',store.getState().user.userSelectedId );
+            console.log('emisor: ', this.props.user.user._id);
+            console.log('receptor: ', store.getState().user.userSelectedId);
             this.props.sendNewMessage(this.props.user.user._id, newMessage, store.getState().user.userSelectedId, hour, socket);
         }
         else { //IF THE MESSAGE IS A GRUPAL MESSAGE (CHATROOM)
@@ -123,8 +129,8 @@ ChatContainer.propTypes = {
 
 ChatContainer.defaultProps = {
     allUsers: [{}],
-    allCurrentMessages: [{}],
-    allMessagesForEveryone: [{}],
+    allCurrentMessages: [],
+    allMessagesForEveryone: [],
     allMessagesForShow: [{}],
     user: {},
     userSelected: {},

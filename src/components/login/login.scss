@@ -37,6 +37,8 @@
     font-weight: 300;
     line-height: 36px;
     text-align: center;
+    margin-top: 2.3rem;
+    margin-bottom: -1.7rem;
 }
 .userNameInput{
     width: 187px;
@@ -271,5 +273,6 @@
 @media only screen and (min-width : 1500px) {
   .modalLogin {
     width: 38%;
+    left: 5rem;
   }
 }
