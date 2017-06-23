@@ -15,7 +15,8 @@ import {
     SET_MESSAGES_FOR_EVERYONE,
     SET_CURRENT_MESSAGES,
     SET_MESSAGES_TYPE,
-    UPDATE_MESSAGE
+    UPDATE_MESSAGE,
+    UPDATE_MESSAGE_CHANNELS
 } from './types';
 
 const API_URL = 'http://localhost:3000/api';
@@ -133,7 +134,7 @@ export function fetchAllCurrentMessages(idUserEmisor, idUserSelected) {
 
 /* Method to get all the messages in the database */
 export function fetchMessagesForEveryone(idUserEmisor) {
-    console.log('Id emisor :' + idUserEmisor);
+    console.log('JUSTIN LLEGO con id emisor :' + idUserEmisor);
     const messagesForEveryone = [{}];
     console.log(messagesForEveryone);
     return function (dispatch) {
@@ -154,26 +155,30 @@ export function fetchMessagesForEveryone(idUserEmisor) {
                 });
             }
             )
-        console.log('<<MENSAJE FINAL>>');
+        console.log('JUSTIIN LLEGO AL FINAL YA TIENE LOS MENSAJES');
         console.log(messagesForEveryone);
     }
 }
 
 //here receives 'idReceiver = '00' if it is a message for everyone and not 
 //just for an especific user/reiver
+
+//(this.props.user.user._id, newMessage, store.getState().user.userSelectedId, hour, socket)
 export function sendNewMessage(username, content, idReceiver, hour, socket) {
-    console.log('ESTOY EN EL ACTION/REDUCER DE send Message');
-    console.log('username: ' + username + 'content: ' + content + 'idReceiver: ' + idReceiver + 'hour: ' + hour);
+    console.log('Send message a la base con ');
+    console.log('idEmisor: ', username);
+    console.log('content: ' , content);
+    console.log('idReceiver: ' , idReceiver);// + 'hour: ' + hour);
     console.log('socket: ', socket);
     return function (dispatch) {
-        const message = { 'content': content, 'idTransmitter': username, 'idReceiver': idReceiver, 'hour': hour };
+        const message = { 'idTransmitter': username, 'content': content, 'idReceiver': idReceiver, 'hour': hour };
         Promise.all([
             axios.post(API_URL_ROUTES + '/messages', message)
                 .then((response) => {
-                    console.log('Post MESSAGE a mongo ', message);
+    
+    
                     socket.emit('sendMessage', username, content, idReceiver, hour);
                     //actualizar la pantalla y los mensajes
-                    console.log('NUEVO MENSAJEEEEE!!!!!! ', response.data);
                     dispatch({
                         type: 'UPDATE_MESSAGE',
                         allCurrentMessages: message,
@@ -182,14 +187,15 @@ export function sendNewMessage(username, content, idReceiver, hour, socket) {
         ]).then(() => {
             console.log('LUEGO DE LA PROMESA')
         })
-        console.log('wii mensaje final NUEVO MENSAJE AGREGADO: ', message);
     }
 }
 
 //here receives 'idReceiver = '00' if it is a message for everyone and not 
 //just for an especific user/reiver
-export function sendNewMessageBroadcast(username, content, hour, socket) {
+//(this.props.user.user._id, newMessage, '00', hour, socket);
+export function sendNewMessageBroadcast(username, content, idReceiver,hour, socket) {
     console.log('ESTOY sendMessage ROOOMMM');
+    console.log('id receive tiene que ser 00 ', idReceiver);
     console.log('socket: ', socket);
     return function (dispatch) {
         const message = { 'content': content, 'idTransmitter': username, 'idReceiver': '00', 'hour': hour };
@@ -197,23 +203,23 @@ export function sendNewMessageBroadcast(username, content, hour, socket) {
             axios.post(API_URL_ROUTES + '/messages', message)
                 .then((response) => {
                     console.log('Post MESSAGE a mongo ', message);
-                    let data = { username, content, idReceiver, hour};
-                    console.log(data);
-                    socket.emit('send', data);
+                    //console.log(response.data);
+                    // sending to all clients except sender
+                    let channel = 'General';
+                    socket.emit('sendBroadcast', username, content, idReceiver,hour,channel);
                     //actualizar la pantalla y los mensajes
                     console.log('NUEVO MENSAJEEEEE!!!!!! ', response.data);
                     dispatch({
-                        type: 'UPDATE_MESSAGE',
-                        allCurrentMessages: message,
+                        type: 'UPDATE_MESSAGE_CHANNELS',
+                        allMessagesForEveryone: message,
                     });
                 }),
         ]).then(() => {
             console.log('LUEGO DE LA PROMESA')
         })
-        console.log('wii mensaje final NUEVO MENSAJE AGREGADO: ', message);
+        console.log('wii mensaje en  CHANNEL AGREGADO: ', message);
     }
 }
-
 
 export function updateMessagesFromSocket(idTransmitter, content, idReceiver, hour) {
     return function (dispatch) {
@@ -226,6 +232,21 @@ export function updateMessagesFromSocket(idTransmitter, content, idReceiver, hou
         });
     };
 }
+
+export function updateMessagesBroadcastFromSocket(idTransmitter, content, idReceiver, hour, channel) {
+    return function (dispatch) {
+        console.log('USERNAME: ', idTransmitter);
+        console.log('idReceiver: ', idReceiver, 'content, hora:', content);
+        console.log('channel: ',channel);
+        const message = {'content': content, 'idTransmitter': idTransmitter, 'idReceiver': idReceiver, 'hour': hour };
+        console.log('Message: ', message);
+        dispatch({
+            type: UPDATE_MESSAGE_CHANNELS,
+            allMessagesForEveryone: message,
+        });
+    };
+}
+
 
 //changes the state for the type of message: if is a personal message or a grupal message
 export function changeMessageType(typeOfMessage) {

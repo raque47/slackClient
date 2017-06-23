@@ -14,6 +14,9 @@ class Chat extends React.Component {
     this.state = {};
   }
   render() {
+        console.log('USER EMISOR this.props.emisor');
+    console.log(this.props.userEmisor);
+ 
     return (
       <div className='row home'>
         <AsideDirectory 
@@ -26,6 +29,7 @@ class Chat extends React.Component {
         <MainChat 
           allCurrentMessages={this.props.allCurrentMessages} 
           allMessagesForEveryone ={this.props.allMessagesForEveryone}
+          allMessagesForShow={this.props.allMessagesForShow}
           sendNewMessage={this.props.sendNewMessage} />
         <AsideChannelDetails />
       </div>

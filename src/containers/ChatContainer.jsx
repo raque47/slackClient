@@ -12,10 +12,12 @@ import { fetchAllUsers } from '../actions/index';
 import { fetchAllCurrentMessages } from '../actions/index';
 import { fetchMessagesForEveryone } from '../actions/index';
 import { sendNewMessage } from '../actions/index';
+import { sendNewMessageBroadcast } from '../actions/index';
 import { changeMessageType } from '../actions/index';
 import { updateMessagesFromSocket } from '../actions/index';
+import { updateMessagesBroadcastFromSocket } from '../actions/index';
 import { getUserSelectedData } from '../actions/index';
-import {getUserEmisorData} from '../actions/index'
+import { getUserEmisorData } from '../actions/index'
 import PropTypes from 'prop-types';
 
 let socket = null;
@@ -44,19 +46,20 @@ class ChatContainer extends React.Component {
         }
         socket = io.connect('http://localhost:3000');
         socket.emit('connected', token._id);
-        console.log('TOKEN ID ES: ', token._id);
-        console.log('USER ID ES: ', this.props.user.user._id);
-    
+
         socket.on('sendMessage', (username, content, idReceiver, hour) => {
-            //console('OJOOOOOO AQUI VA DE NUEVO!!!! ');
         });
         socket.on('updateMessages', (username, content, idReceiver, hour) => {
             this.props.updateMessagesFromSocket(username, content, idReceiver, hour);
+        
+        });
+        socket.on('updateMessagesBroadcast', (username, content, idReceiver, hour, channel) => {
+            this.props.updateMessagesBroadcastFromSocket(username, content, idReceiver, hour, channel);
+
         });
 
     };
     loadAllCurrentMessagesOfChat(userSelectedId) {
-        console.log('parametro lola ' + userSelectedId + ' yo ' + this.props.user.user._id);
         socket.emit('addUser', userSelectedId);
         this.props.loadAllCurrentMessages(userSelectedId, this.props.user.user._id);
         store.dispatch({
@@ -65,42 +68,39 @@ class ChatContainer extends React.Component {
         });
         this.props.getUserSelectedData(userSelectedId);
     };
-    loadAllCurrentMessagesOfRoom(){
+    loadAllCurrentMessagesOfRoom(channel) {
         this.props.fetchMessagesForEveryone(this.props.user.user._id);
     }
     sendNewMessage(newMessage) {
         const hour = "10:02";
-        console.log('new message!');
-        console.log(newMessage);
-        console.log('Mensaje: ', this.props.user, newMessage, hour);
-        console.log('Personal o grupal???  ');
-        console.log(store.getState().allCurrentMessages.messageType);
         //IF THE MESSAGE IS A PERSONAL MESSAGE
         if (store.getState().allCurrentMessages.messageType === 'personal') {
-            console.log('OJO A ESTE QUE NO SE NULL ');
-            console.log(store.getState().user.userSelectedId);
+            console.log('ESTOY EN PERSONAL CON ');
+            console.log('emisor: ',this.props.user.user._id );
+            console.log('receptor: ',store.getState().user.userSelectedId );
             this.props.sendNewMessage(this.props.user.user._id, newMessage, store.getState().user.userSelectedId, hour, socket);
         }
         else { //IF THE MESSAGE IS A GRUPAL MESSAGE (CHATROOM)
-            socket.emit('subscribe', 'General'); 
-            this.props.sendNewMessage(this.props.user.user._id, newMessage, '00', hour, socket);
+
+            this.props.sendNewMessageBroadcast(this.props.user.user._id, newMessage, '00', hour, socket);
         }
     };
     render() {
-        const { allUsers, allCurrentMessages,allMessagesForEveryone, user, userSelected, userSelectedId, messageType } = this.props;
+        const { allUsers, allCurrentMessages, allMessagesForEveryone, allMessagesForShow, user, userSelected, userSelectedId, messageType } = this.props;
         return (
             <Chat
                 allUsers={allUsers}
                 allCurrentMessages={allCurrentMessages}
+                allMessagesForShow={allMessagesForShow}
                 allMessagesForEveryone={allMessagesForEveryone}
                 messageType={messageType}
                 user={user}
                 userSelected={userSelected}
                 directoryReady={this.state.directoryReady}
                 loadAllCurrentMessagesOfChat={this.loadAllCurrentMessagesOfChat}
-                loadAllCurrentMessagesOfRoom = {this.loadAllCurrentMessagesOfRoom}
+                loadAllCurrentMessagesOfRoom={this.loadAllCurrentMessagesOfRoom}
                 sendNewMessage={this.sendNewMessage}
-                getUserEmisorData = {this.props.getUserEmisorData}
+                getUserEmisorData={this.props.getUserEmisorData}
             />
         );
     };
@@ -109,14 +109,15 @@ class ChatContainer extends React.Component {
 ChatContainer.propTypes = {
     loadAllUsers: PropTypes.func,
     loadAllCurrentMessages: PropTypes.func,
-    fetchMessagesForEveryone: PropTypes.func,
+    fetchMessagesForEveryone: PropTypes.arrayOf(PropTypes.object),
     allUsers: PropTypes.arrayOf(PropTypes.object),
     allCurrentMessages: PropTypes.arrayOf(PropTypes.object),
+    allMessagesForShow: PropTypes.arrayOf(PropTypes.object),
     user: PropTypes.object,
     userSelected: PropTypes.object,
     userSelectedId: PropTypes.string,
     messageType: PropTypes.string,
-    dataOfUserSelected : PropTypes.string,
+    dataOfUserSelected: PropTypes.string,
     dataOfUserEmisor: PropTypes.string,
 };
 
@@ -124,10 +125,11 @@ ChatContainer.defaultProps = {
     allUsers: [{}],
     allCurrentMessages: [{}],
     allMessagesForEveryone: [{}],
+    allMessagesForShow: [{}],
     user: {},
     userSelected: {},
-    dataOfUserSelected:{},
-    dataOfUserEmisor:{},
+    dataOfUserSelected: {},
+    dataOfUserEmisor: {},
     userSelectedId: '',
     setDirectoryReady: false,
     messageType: '',
@@ -137,6 +139,7 @@ const mapStateToProps = (state) => {
     return {
         allUsers: state.allUsers,
         allCurrentMessages: state.allCurrentMessages,
+        allMessagesForShow: state.allMessagesForShow,
         allMessagesForEveryone: state.allMessagesForEveryone,
         user: state.user,
         userSelected: state.userSelected,
@@ -153,9 +156,11 @@ const mapDispatchToProps = dispatch => {
         fetchMessagesForEveryone: (userEmisor) => dispatch(fetchMessagesForEveryone(userEmisor)),
         sendNewMessage: (username, content, idReceiver, hour, soket) => dispatch(sendNewMessage(username, content, idReceiver, hour, soket)),
         changeMessageType: (typeOfMessage) => dispatch(changeMessageType(typeOfMessage)),
-        updateMessagesFromSocket: (username, content, idReceiver, hour) => dispatch(updateMessagesFromSocket(username, content, idReceiver, hour) ),
-        getUserSelectedData:(userSelectedId) => dispatch(getUserSelectedData(userSelectedId) ),
-        getUserEmisorData:(userEmisorId) => dispatch(getUserEmisorData(userEmisorId) ),
+        updateMessagesFromSocket: (username, content, idReceiver, hour) => dispatch(updateMessagesFromSocket(username, content, idReceiver, hour)),
+        updateMessagesBroadcastFromSocket: (username, content, idReceiver, hour, channel) => dispatch(updateMessagesBroadcastFromSocket(username, content, idReceiver, hour, channel)),
+        getUserSelectedData: (userSelectedId) => dispatch(getUserSelectedData(userSelectedId)),
+        getUserEmisorData: (userEmisorId) => dispatch(getUserEmisorData(userEmisorId)),
+        sendNewMessageBroadcast: (username, content, idReceiver, hour, soket) => dispatch(sendNewMessageBroadcast(username, content, idReceiver, hour, soket)),
     };
 };
 

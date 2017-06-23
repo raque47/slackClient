@@ -11,11 +11,10 @@ class AsideDirectory extends React.Component {
     super(props);
     this.state = { ready: false }
     this.onHandleClickChat = this.onHandleClickChat.bind(this);
-    //this.onHandleClickGeneral = this.onHandleClickGeneral.bind(this);
+    this.onHandleClickGeneral = this.onHandleClickGeneral.bind(this);
   }
   onHandleClickChat(event) {
-        console.log('JSJKDSHADJKASHDASKJDHKJASDHKJA',event.target.id);
-
+    console.log('JSJKDSHADJKASHDASKJDHKJASDHKJA',event.target.id);
     this.props.loadAllCurrentMessagesOfChat(event.target.id);
     {
       store.dispatch({
@@ -24,24 +23,22 @@ class AsideDirectory extends React.Component {
       });
     } 
   }
-  // onHandleClickGeneral(event) {
-  //       console.log('justin BIEBER');
-  //   this.props.loadAllCurrentMessagesOfRoom();
-  //   {
-  //     store.dispatch({
-  //       type: SET_MESSAGES_TYPE,
-  //       messageType: 'room',
-  //     });
-  //   }
-  // }
+  onHandleClickGeneral(event) {
+    console.log('JUSTTIINN BIEBER');
+    this.props.loadAllCurrentMessagesOfRoom();
+    {
+      store.dispatch({
+        type: SET_MESSAGES_TYPE,
+        messageType: 'room',
+      });
+    }
+  }
   render() {
-    console.log('VVOYA A RENDEREAR!!!');
     if (store.getState().allUsers.allUsers.length > 1) {
       this.state.ready = true;
     } else {
       this.state.ready = false;
     }
-    console.log('VVOYA A RENDEREAR!!!' + this.state.ready);
     return (
       <div className='aside col-md-2'>
         <div className='row'>
@@ -58,7 +55,7 @@ class AsideDirectory extends React.Component {
                 <a><span className='channels-options'>ALL THREADS</span></a>
                 <a><span className='channels-options'>CHANNELS</span></a>
                 <div className='channels'>
-                  <a><span className='channel'>General</span> </a>
+                  <a onClick={this.onHandleClickGeneral} ><span className='channel'>General</span> </a>
                   <a><span className='channel'>Channel 2</span> </a>
                 </div>
               </div>

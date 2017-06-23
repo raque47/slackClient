@@ -16,15 +16,17 @@ class Message extends React.Component {
   render() {
 
     if (store.getState().allUsers != undefined && store.getState().allUsers.allUsers != undefined) {
-
+   console.log( this.props.idReceiver);
+            console.log(  );
       if ((store.getState().allUsers.allUsers.find((element) => (element._id === this.props.userEmisor))) != undefined) {
 
         this.state.name = store.getState().allUsers.allUsers.find((element) => (element._id === this.props.userEmisor)).profile.firstName;
 
-        console.log('Nombre', this.state.name);
+        console.log('Nombre TIENE Q SER JUANNNNNNNNNNNNN', this.state.name);
+        console.log('JUAN RETORNO ', store.getState().allUsers.allUsers.find((element) => (element._id === this.props.userEmisor)).profile.firstName);
 
-        const a = (store.getState().allUsers.allUsers.find((element) => (element.profile.firstName === this.state.name)));
-        console.log(a);
+         const a = (store.getState().allUsers.allUsers.find((element) => (element.profile.firstName === this.state.name)));
+        // console.log(a);
         if (a != undefined) {
           console.log('YES O NO ');
           console.log(a.photo);
@@ -36,10 +38,8 @@ class Message extends React.Component {
             this.state.pathImage = '../../src/images/users/noPhoto.png';
             console.log('pathh image SIN foto ', this.state.pathImage);
           }
-
         }
       }
-
     }
     
     return (
@@ -51,7 +51,7 @@ class Message extends React.Component {
           </div>
           <div className='col-md-10'>
             <div className='messageTitle'>
-              <h4 className='name__style'>{this.state.name}</h4>
+              <h4 className='name__style'>{ this.props.userEmisor}</h4>
               <h5 className='time__style'> {this.props.date}</h5>
             </div>
             <p className='p__style'>

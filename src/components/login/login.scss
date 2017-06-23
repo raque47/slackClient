@@ -110,8 +110,8 @@
   align-items: center;
 }
 
-.linkHeader{
-    margin: 1.3rem;
+.linkHeader {
+    margin: 3rem;
 }
 .buttonHeader {
     background-color: Transparent;
@@ -119,8 +119,8 @@
     border-radius: 2px;
     border: 1px solid #807385;
     margin: 1.3rem;
-    padding-left: 0.3rem;
-    padding-right: 0.3rem;
+    padding-left: 0.6rem;
+    padding-right: 0.6rem;
 }
 .containerElementsNavBar{
     display: flex;
@@ -140,9 +140,13 @@
     line-height: 13.5px;
 }
 /**/
-.image-background{
+.image-background {
     background-image: url('../../images/backgroundLogin.jpg');
     height: 37.1084vh;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center center;
+    // width: 100vw;
 }
 
 .background{
@@ -160,9 +164,9 @@
         left: 1.3px;
         border-radius: 0px;
     }
-    .image-background {
-        height: 0;
-    }
+    // .image-background {
+    //     height: 0;
+    // }
     .navBar{
         justify-content: flex-start;
     }
@@ -176,11 +180,15 @@
         margin: 0.6rem;
         margin-right: -1rem;
     }
+    .linkHeader{
+        margin: 1.3rem;
+    }
+
 }
 
 
 /*Responsive*/
-@media only screen and (max-width: 640px) {
+@media only screen and (max-width: 690px) {
     .modalLogin {
         margin: 0;
         width: 100%;
@@ -189,9 +197,9 @@
         left: 0.3px;
         border-radius: 0px;
     }
-    .image-background {
-        height: 0;
-           }
+    // .image-background {
+    //     height: 0;
+    //        }
     .navBar{
            justify-content: flex-start;
     }
@@ -201,10 +209,14 @@
     .container-fluid {
         padding-right: 9px;
     }
-        .buttonHeader {
+    .buttonHeader {
         margin: 0.6rem;
         margin-right: -1rem;
     }
+    .linkHeader{
+        margin: 1.3rem;
+    }
+
 }
 
 @media screen and (device-aspect-ratio: 40/71) {
@@ -216,9 +228,9 @@
         left: 1.3px;
         border-radius: 0px;
     }
-    .image-background {
-        height: 0;
-    }
+    // .image-background {
+    //     height: 0;
+    // }
     .navBar{
         justify-content: flex-start;
     }
@@ -243,4 +255,21 @@
     .modalLogin {
         top: 49px;
     }
+}
+
+@media only screen and (max-width: 950px) and (min-width: 600px) {
+  .image-background {
+    height: 29.1084vh;
+  }
+}
+// @media only screen and (max-width: 859px) and (min-width: 705px) {
+//     .image-background {
+//         top: -70px;
+//   }
+// }
+
+@media only screen and (min-width : 1500px) {
+  .modalLogin {
+    width: 38%;
+  }
 }

@@ -1,9 +1,12 @@
+
 $height72: calc(100vh - 72px);
 $height144: calc(100vh - 144px);
 
 .listContainer {
+  background-color: #F9F9F9;
+  border-left: 1px solid #E6E6E6;
   height: $height72;
-  background-color: #f9f9f9;
+  overflow-y: auto;
 }
 .listContainer > ul {
   list-style: none;
@@ -11,18 +14,23 @@ $height144: calc(100vh - 144px);
   padding: 0;
 }
 .listContainer > ul > li {
+  background-color: #F9F9F9;
+  border-bottom: 1px solid #E6E6E6;
+  border-radius: 0px;
+  color: #767677;
+  line-height: 5rem;
   list-style: none;
   margin: 0;
   padding-left: 3.5rem;
-  border: 1px solid #E6E6E6;
-  background-color: #f9f9f9;
-  line-height: 5rem;
+}
+.list-items {
+  padding-top: 1.7rem;
+  padding-bottom: 1.7rem;
 }
 .listArrow {
   color: black;
+  right: 20%;
   position: absolute;
-  left: 85%;
-  // transform: rotate(270deg);
 }
 
 @media only screen and (max-width: 990px) {
