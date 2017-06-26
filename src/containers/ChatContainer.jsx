@@ -45,8 +45,8 @@ class ChatContainer extends React.Component {
                 user: token,
             });
         }
-        socket = io.connect('http://localhost:3000');
-        //socket = io.connect('https://agile-journey-45148.herokuapp.com');
+        //socket = io.connect('http://localhost:3000');
+        socket = io.connect('https://agile-journey-45148.herokuapp.com');
         socket.emit('connected', token._id);
 
         socket.on('sendMessage', (username, content, idReceiver, hour) => {
