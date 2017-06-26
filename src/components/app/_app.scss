@@ -14,3 +14,53 @@
 .container-fluid {
     padding-right: 30px;
 }
+
+
+.imageLogoModalRegister {
+    padding-top: -4rem;
+    margin-top: -2rem;
+}
+.textModalRegister {
+        color: #212121;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-weight: 300;
+    line-height: 36px;
+    text-align: center;
+    margin-bottom: -1.7rem;
+    margin-top: 0.8rem;
+    font-size: 30px;
+}
+.containerInputsModalRegister {
+    margin-top: 2rem;
+	align-items: center;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    .form-control {
+        width: 183%;
+        /* padding: 0 3rem 0 3rem; */
+        margin-left: 3rem;
+        margin-right: -4rem;
+    }
+}
+	
+.rectangleSubmitArrowRegister {
+    height: 34px;
+}
+
+.rectangleSubmitArrowRegister {
+    width: 27.39%;
+    height: 34px;
+    background-color: #20a766;
+    border-radius: 0 4px 4px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    left: 8rem;
+}
+
+.rectangleInputUserRegister{
+    width: 100%;
+}
+

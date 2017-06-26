@@ -1,27 +1,50 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import io from 'socket.io-client';
+//import io from 'socket.io-client';
 import appStyle from '../components/app/_app.scss'
-import axios from 'axios'
-import Login from '../components/login/login'
-import { loginUser } from '../actions/index';
+//import axios from 'axios'
+//import Register from '../components/Register/Register'
+import { registerUser } from '../actions/index';
 import { Field, reduxForm } from 'redux-form';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 
 const form = reduxForm({
-    form: 'login'
+    form: 'register',
+    validate
 });
+const renderField = field => (
+    <div>
+        <input className="form-control" {...field.input} />
+        {field.touched && field.error && <div className="error">{field.error}</div>}
+    </div>
+);
 
-class LoginContainer extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        }
+function validate(formProps) {
+    const errors = {};
+
+    if (!formProps.firstName) {
+        errors.firstName = 'Please enter a first name';
     }
+
+    if (!formProps.lastName) {
+        errors.lastName = 'Please enter a last name';
+    }
+
+    if (!formProps.email) {
+        errors.email = 'Please enter an email';
+    }
+
+    if (!formProps.password) {
+        errors.password = 'Please enter a password';
+    }
+
+    return errors;
+}
+class RegisterContainer extends React.Component {
     handleFormSubmit(formProps) {
-        console.log(formProps);
-        this.props.loginUser(formProps);
+        this.props.registerUser(formProps);
     }
+
     renderAlert() {
         if (this.props.errorMessage) {
             return (
@@ -66,25 +89,33 @@ class LoginContainer extends React.Component {
                 </div>
                 <div className="modalLogin">
                     <div className="containerLogoModal">
-                        <img src={require(`../images/logoModal.png`)} className="imageLogoModal" />
-                        <div className="textModal">Sign in</div>
+                        <img src={require(`../images/logoModal.png`)} className="imageLogoModal imageLogoModalRegister" />
+                        <div className="textModalRegister">Sign up</div>
                     </div>
-                    <div className="containerInputsModal">
+                    <div className="containerInputsModalRegister">
                         <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
                             {this.renderAlert()}
                             <div className="inputRectangleUser">
-                                <Field name="email" className="rectangleInputUser" component="input" type="text" placeholder="Enter your email" />
+                                <Field name="firstName" className="rectangleInputUserRegister" component={renderField} type="text" placeholder="Enter your name" />
+                            </div>
+                            <div className="inputRectangleUser">
+                                <Field name="lastName" className="rectangleInputUserRegister" component={renderField} type="text" placeholder="Enter your last name" />
+                            </div>
+                            <div className="inputRectangleUser">
+                                <Field name="email" className="rectangleInputUserRegister" component={renderField} type="text" placeholder="Enter your email" />
                             </div>
                             <div className="inputRectangle">
-                                <Field name="password" className="rectangleInput" component="input" type="password" placeholder="Entrer your password" />
-                                <button className="rectangleSubmitArrow" href='#' id='' type='submit'>
+                                <Field name="password" className="rectangleInputUserRegister" component={renderField} type="password" placeholder="Entrer your password" />
+                                <button className="rectangleSubmitArrowRegister" href='#' id='' type='submit'>
                                     <img src={require(`../images/loginarrow.svg`)} className="arrowSubmit" />
                                 </button>
                             </div>
                         </form>
+                        {/*<div className="informationText">
+                        </div>*/}
                         <div className="informationText">
-                            <p className='loginText'>Don't have an account?  </p>
-                            <Link to= "/register" className='loginTextSignUp'>Sign up here!</Link>
+                            <p className='loginText'>Already have an account?  </p>
+                            <Link to="/" className='loginTextSignUp'>Sign in here!</Link>
                         </div>
                     </div>
                 </div>
@@ -101,4 +132,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, { loginUser })(form(LoginContainer));  
+export default connect(mapStateToProps, { registerUser })(form(RegisterContainer));  

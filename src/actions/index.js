@@ -1,11 +1,14 @@
 import axios from 'axios';
 import store from '../store';
 import Cookies from 'universal-cookie';
-import { AUTH_USER, AUTH_ERROR,UNAUTH_USER, SET_USER,SET_ALL_USERS,SET_FETCH_READY, SET_CHAT,SET_MESSAGE,SET_USER_LOGGED,SET_MESSAGES_FOR_EVERYONE,SET_CURRENT_MESSAGES,SET_MESSAGES_TYPE,UPDATE_MESSAGE, UPDATE_MESSAGE_CHANNELS} from './types';
+import { AUTH_USER, AUTH_ERROR, UNAUTH_USER, SET_USER, SET_ALL_USERS, SET_FETCH_READY, SET_CHAT, SET_MESSAGE, SET_USER_LOGGED, SET_MESSAGES_FOR_EVERYONE, SET_CURRENT_MESSAGES, SET_MESSAGES_TYPE, UPDATE_MESSAGE, UPDATE_MESSAGE_CHANNELS } from './types';
 
 const API_URL = 'https://agile-journey-45148.herokuapp.com/api';
-const CLIENT_URL = 'http://localhost:8000';
 const API_URL_ROUTES = 'https://agile-journey-45148.herokuapp.com/api/routes';
+
+// const API_URL = 'http://localhost:3000/api';
+// const API_URL_ROUTES = 'http://localhost:3000/api/routes';
+
 
 function setUser(user) {
     console.log('estoy en setUser con el usuario ' + user);
@@ -17,9 +20,10 @@ export function loginUser({ email, password }) {
             .post(`${API_URL}/auth/login`, { email, password })
             .then((response) => {
                 dispatch({
-                    type: 'SET_USER',
+                    type: SET_USER,
                     user: response.data.user
                 });
+                dispatch({ type: AUTH_USER });
                 const cookies = new Cookies();
                 cookies.set('token', response.data.user, { path: '/' });
                 window.location.href = '/chat';
@@ -27,6 +31,77 @@ export function loginUser({ email, password }) {
             .catch((error) => {
                 console.log('Axios error');
             });
+    }
+}
+
+export function registerUser({ firstName, lastName, email, password }) {
+    return function (dispatch) {
+        axios.post(`${API_URL}/auth/register`, {  firstName, lastName,email, password })
+            .then(response => {
+                dispatch({
+                    type: SET_USER,
+                    user: response.data.user
+                });
+                dispatch({ type: AUTH_USER });
+                const cookies = new Cookies();
+                cookies.set('token', response.data.user, { path: '/' });
+                window.location.href = '/chat';
+            })
+            .catch((error) => {
+                // errorHandler(dispatch, error.response, AUTH_ERROR)
+                console.log('Error');
+            });
+    }
+}
+
+export function protectedTest() {
+    return function (dispatch) {
+        axios.get(`${API_URL}/protected`, {
+            headers: { 'Authorization': cookie.load('token') }
+        })
+            .then(response => {
+                dispatch({
+                    type: PROTECTED_TEST,
+                    payload: response.data.content
+                });
+            })
+            .catch((error) => {
+                errorHandler(dispatch, error.response, AUTH_ERROR)
+            });
+    }
+}
+
+export function logoutUser() {
+    return function (dispatch) {
+        dispatch({ type: UNAUTH_USER });
+        cookie.remove('token', { path: '/' });
+
+        window.location.href = CLIENT_ROOT_URL + '/login';
+    }
+}
+
+export function errorHandler(dispatch, error, type) {
+    let errorMessage = '';
+
+    if (error.data.error) {
+        errorMessage = error.data.error;
+    } else if (error.data) {
+        errorMessage = error.data;
+    } else {
+        errorMessage = error;
+    }
+
+    if (error.status === 401) {
+        dispatch({
+            type: type,
+            payload: 'You are not authorized to do this. Please login and try again.'
+        });
+        logoutUser();
+    } else {
+        dispatch({
+            type: type,
+            payload: errorMessage
+        });
     }
 }
 
@@ -81,10 +156,10 @@ export function fetchAllCurrentMessages(idUserEmisor, idUserSelected) {
                                 contador++)
                             : (contador = contador)
                     )),
-                dispatch({
-                    type: 'SET_CURRENT_MESSAGES',
-                    allCurrentMessages: messagesFiltered
-                });
+                    dispatch({
+                        type: 'SET_CURRENT_MESSAGES',
+                        allCurrentMessages: messagesFiltered
+                    });
             }
             )
     }
@@ -107,7 +182,7 @@ export function fetchMessagesForEveryone(idUserEmisor) {
                     allMessagesForEveryone: messagesForEveryone
                 });
             }
-            )    
+            )
     }
 }
 
@@ -133,7 +208,7 @@ export function sendNewMessage(username, content, idReceiver, hour, socket) {
 
 /* Method to send a new private message (post to the database and send information to the socket)
 Receives 'idReceiver = '00' if it is a message for everyone (a group/channel message)*/
-export function sendNewMessageBroadcast(username, content, idReceiver,hour, socket) {
+export function sendNewMessageBroadcast(username, content, idReceiver, hour, socket) {
     return function (dispatch) {
         const message = { 'content': content, 'idTransmitter': username, 'idReceiver': '00', 'hour': hour };
         Promise.all([
@@ -141,7 +216,7 @@ export function sendNewMessageBroadcast(username, content, idReceiver,hour, sock
                 .then((response) => {
                     // sending to all clients except sender
                     let channel = 'General';
-                    socket.emit('sendBroadcast', username, content, idReceiver,hour,channel);
+                    socket.emit('sendBroadcast', username, content, idReceiver, hour, channel);
                     dispatch({
                         type: 'UPDATE_MESSAGE_CHANNELS',
                         allMessagesForEveryone: message,
@@ -154,7 +229,7 @@ export function sendNewMessageBroadcast(username, content, idReceiver,hour, sock
 // Update private messages
 export function updateMessagesFromSocket(idTransmitter, content, idReceiver, hour) {
     return function (dispatch) {
-        const message = {'content': content, 'idTransmitter': idTransmitter, 'idReceiver': idReceiver, 'hour': hour };
+        const message = { 'content': content, 'idTransmitter': idTransmitter, 'idReceiver': idReceiver, 'hour': hour };
         dispatch({
             type: UPDATE_MESSAGE,
             allCurrentMessages: message,
@@ -164,7 +239,7 @@ export function updateMessagesFromSocket(idTransmitter, content, idReceiver, hou
 //Update group/channels messages
 export function updateMessagesBroadcastFromSocket(idTransmitter, content, idReceiver, hour, channel) {
     return function (dispatch) {
-        const message = {'content': content, 'idTransmitter': idTransmitter, 'idReceiver': idReceiver, 'hour': hour };
+        const message = { 'content': content, 'idTransmitter': idTransmitter, 'idReceiver': idReceiver, 'hour': hour };
         dispatch({
             type: UPDATE_MESSAGE_CHANNELS,
             allMessagesForEveryone: message,
@@ -184,7 +259,7 @@ export function changeMessageType(typeOfMessage) {
 }
 
 //Get the information of the user selected to talk with, in private messages
-export function getUserSelectedData(userSelectedId){
+export function getUserSelectedData(userSelectedId) {
     return function (dispatch) {
         axios.get(`${API_URL_ROUTES}/users/${userSelectedId}`)
             .then((response) => {
@@ -195,7 +270,7 @@ export function getUserSelectedData(userSelectedId){
 }
 
 //Get the information of the user that send the messages
-export function getUserEmisorData(userId){
+export function getUserEmisorData(userId) {
     return function (dispatch) {
         axios.get(`${API_URL_ROUTES}/users/${userId}`)
             .then((response) => {
@@ -205,15 +280,5 @@ export function getUserEmisorData(userId){
     }
 }
 
-// ErrorHandler method
-export function errorHandler(dispatch, error, type) {
-    let errorMessage = '';
-    if (error.data.error) {
-        errorMessage = error.data.error;
-    } else if (error.data) {
-        errorMessage = error.data;
-    } else {
-        errorMessage = error;
-    }
-}
+
 

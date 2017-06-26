@@ -47,7 +47,7 @@ class AsideDirectory extends React.Component {
               <span className='name-letter user-status online'> {(this.state.ready ? store.getState().user.user.firstName : <div />)} </span>
             </div>
           </header>
-          <div className='col-md-12 body'>
+          <div className='col-md-12 body scrollbar'>
             <div className='body-wrapper aside-margin-left'>
               <div className='channels-info'>
                 <a><span className='channels-options'>ALL UNREADS</span></a>

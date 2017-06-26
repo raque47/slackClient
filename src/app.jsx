@@ -7,8 +7,12 @@ import reduxThunk from 'redux-thunk';
 import routes from './routes';  
 import reducers from './reducers/index';  
 import store from './store'
+// import cookie from 'universal-cookie';  
+// const token = cookie.load('token');
 
-
+// if (token) {  
+//   store.dispatch({ type: AUTH_USER });
+// }
 const App = () => (
         <Provider store={ store }>
             { routes () }

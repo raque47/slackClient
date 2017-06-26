@@ -31,6 +31,7 @@ class ChatContainer extends React.Component {
         this.loadAllCurrentMessagesOfChat = this.loadAllCurrentMessagesOfChat.bind(this);
         this.loadAllCurrentMessagesOfRoom = this.loadAllCurrentMessagesOfRoom.bind(this);
         this.sendNewMessage = this.sendNewMessage.bind(this);
+
     };
     componentDidMount() {
         this.props.loadAllUsers();
@@ -45,6 +46,7 @@ class ChatContainer extends React.Component {
             });
         }
         socket = io.connect('http://localhost:3000');
+        //socket = io.connect('https://agile-journey-45148.herokuapp.com');
         socket.emit('connected', token._id);
 
         socket.on('sendMessage', (username, content, idReceiver, hour) => {
@@ -83,6 +85,8 @@ class ChatContainer extends React.Component {
             this.props.sendNewMessageBroadcast(this.props.user.user._id, newMessage, '00', hour, socket);
         }
     };
+
+
     render() {
         const { allUsers, allCurrentMessages, allMessagesForEveryone, allMessagesForShow, user, userSelected, userSelectedId, messageType } = this.props;
         return (
@@ -145,6 +149,7 @@ const mapStateToProps = (state) => {
         messageType: state.messageType,
         dataOfUserSelected: state.dataOfUserSelected,
         dataOfUserEmisor: state.dataOfUserEmisor,
+        //content: state.auth.contents
     };
 };
 const mapDispatchToProps = dispatch => {
