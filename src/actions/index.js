@@ -5,7 +5,7 @@ import { AUTH_USER, AUTH_ERROR, UNAUTH_USER, SET_USER, SET_ALL_USERS, SET_FETCH_
 
 const API_URL = 'https://agile-journey-45148.herokuapp.com/api';
 const API_URL_ROUTES = 'https://agile-journey-45148.herokuapp.com/api/routes';
-const API_CLIENTE= 'https://grader-toad-67805.netlify.com/';
+const API_CLIENTE= 'https://grader-toad-67805.netlify.com';
 // const API_URL = 'http://localhost:3000/api';
 // const API_URL_ROUTES = 'http://localhost:3000/api/routes';
 
