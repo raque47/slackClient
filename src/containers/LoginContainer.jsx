@@ -107,8 +107,9 @@ class LoginContainer extends React.Component {
                             </div>
                             <div className="inputRectangle">
                                 <Field name="password" className="rectangleInput" component="input" type="password" placeholder="Entrer your password" />
+                                {console.log(this.props.user)}
                                 {this.props.user !== null && this.props.user !== undefined
-                                    ? this.props.user.userLogged == true
+                                    ? this.props.user.userLogged === true
                                         ? <Redirect to='/chat' />
                                         : <Redirect to='/' />
                                     : null
@@ -133,13 +134,14 @@ class LoginContainer extends React.Component {
         );
     }
 }
-LoginContainer.contextTypes = {
-    router: PropTypes.func.isRequired
-};
+// LoginContainer.contextTypes = {
+//     router: PropTypes.func.isRequired
+// };
 function mapStateToProps(state) {
     return {
         errorMessage: state.auth.error,
-        message: state.auth.message
+        message: state.auth.message,
+        user: state.user,
     };
 }
 
