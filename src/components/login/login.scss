@@ -260,6 +260,25 @@
         margin: 1.3rem;
     }
 
+    .containerInputsModalRegister .form-control {
+        width: 117%;
+    }
+    .rectangleSubmitArrowRegister {
+        width: 16.39%;
+        position: relative;
+        left: 1.2rem;
+    }
+    .textNavBarLeft {
+        display: none;
+    }
+    .imageNavBarRight {
+        margin: 0px 0 0 11px;
+    }
+    .settingsImage {
+        width: 13px;
+        height: 16px;
+    }
+
 }
 
 @media screen and (device-aspect-ratio: 40/71) {

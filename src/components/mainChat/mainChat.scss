@@ -108,3 +108,15 @@ $marginCalc: calc((8.7vh - 30px)/2);
   height:  72px;
   border-top: 1px solid rgb(231, 231, 231)
 }
+
+  /*Responsive*/
+  @media only screen and (max-width: 670px) {
+    .main__center {
+        padding-right: 0;
+        width: 103%;
+    }
+
+    .footer__center {
+        width: 103%;
+    }
+  }

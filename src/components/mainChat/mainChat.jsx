@@ -29,7 +29,7 @@ class MainChat extends React.Component {
 
   render() {
     return (
-      <div className='col-md-7 col-sm-8 col-xs-8 '>
+      <div className='col-md-7 col-sm-8 col-xs-7 '>
         <main className='main__position'>
           <div className='row'>
             <div ref={(el) => { this.messagesContainer = el; }}

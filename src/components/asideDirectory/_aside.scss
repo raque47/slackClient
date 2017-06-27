@@ -285,22 +285,49 @@ $brand-green: #20a766;
   }
 
     /* Smartphones (portrait & landscape) */
-  @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+  @media only screen and (min-device-width : 320px) and (max-device-width : 670px) {
       .aside {
           width: 49%;
           margin-right: 0.3rem;
           padding-right: 0.3rem;
       }
+      .aside .body {
+        padding-right: 0.9rem;
+        padding-left:1.9rem;
+      }
+
+     .aside .channels-options {
+        font-size: 9px;
+     }
+  }
+
+  @media only screen and (max-width: 700px){
+      .aside .body {
+        padding-right: 0.9rem;
+        padding-left: 1.2rem;
+      }
+
+     .aside .channels-options {
+        font-size: 9px;
+     }
   }
 
 
   /*Responsive*/
-  @media only screen and (max-width: 640px) {
+  @media only screen and (max-width: 670px) {
       .aside {
           width: 49%;
           margin-right: 0.3rem;
           padding-right: 0.3rem;
       }
+      .aside .body {
+        padding-right: 0.9rem;
+        padding-left: 2rem;
+      }
+
+     .aside .channels-options {
+        font-size: 9px;
+     }
   }
 
   @media screen and (device-aspect-ratio: 40/71) {
