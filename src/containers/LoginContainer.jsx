@@ -73,9 +73,7 @@ class LoginContainer extends React.Component {
                         <img src={require(`../images/logoModal.png`)} className="imageLogoModal" />
                         <div className="textModal">Sign in</div>
                     </div>
-
                     <div className="containerInputsModal">
-
                         <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
                             {this.renderAlert()}
                             <div className="inputRectangleUser">
@@ -95,7 +93,6 @@ class LoginContainer extends React.Component {
                                 </button>
                             </div>
                         </form>
-
                         <div className="informationText">
                             <p className='loginText'>Don't have an account?  </p>
                             <Link to="/register" className='loginTextSignUp'>Sign up here!</Link>

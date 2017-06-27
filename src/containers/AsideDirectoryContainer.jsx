@@ -19,13 +19,9 @@ class AsideDirectoryContainer extends React.Component {
     }
     render() {
         const { allUsers } = this.props;
-        console.log(allUsers);
         if (allUsers !== undefined) {
-            console.log(' allUsers NO es undeifned');
             if (allUsers.length !== 0) {
-                console.log(' allUsers es distinto 0');
                 this.props.setDirectoryReady(true);
-                //this.setState({ directoryReady: true });
                 this.state.directoryReady = true;
                 dispatch(setFetchUsersReady(true))
             }
@@ -53,7 +49,6 @@ AsideDirectoryContainer.defaultProps = {
     setDirectoryReady: false
 };
 
-
 const mapStateToProps = (state) => {
     return {
         allUsers: state.allUsers,
@@ -62,7 +57,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => {
     return {
         loadAllUsers: () => dispatch(fetchAllUsers()),
-       // setDirectoryReady: () => dispatch(setFetchUsersReady())
     };
 };
 

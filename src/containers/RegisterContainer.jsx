@@ -1,13 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-//import io from 'socket.io-client';
 import appStyle from '../components/app/_app.scss'
 import store from '../store';
-//import axios from 'axios'
-//import Register from '../components/Register/Register'
 import { registerUser } from '../actions/index';
 import { Field, reduxForm } from 'redux-form';
-import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router';
 import PropTypes from 'prop-types';
 
 const form = reduxForm({
@@ -46,30 +44,14 @@ class RegisterContainer extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            continue: false
+            continue: false,
+            afk : 'logoSlackHeader'
         }
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
+        this.renderAlert = this.renderAlert.bind(this);
     }
     handleFormSubmit(formProps) {
-        Promise.all([
-            this.props.registerUser(formProps)
-        ]).then(() => {
-            this.continue = true;
-            this.setState({ continue: true });
-            this.seeIfCanLoad();
-        })
-    }
-    seeIfCanLoad() {
-       this.state.continue === true ? this.context.router.history.push('/chat') : null
-       Promise.all([
-            store.getState().user.userLogged === true ?
-                this.context.router.history.push('/chat') : null
-        ]).then(() => {
-           {
-                store.getState().user.userLogged === true ?
-                    this.context.router.history.push('/chat')
-                    : null
-            }
-        })
+        this.props.registerUser(formProps)
     }
     renderAlert() {
         if (this.props.errorMessage) {
@@ -80,7 +62,6 @@ class RegisterContainer extends React.Component {
             );
         }
     }
-
     render() {
         const { handleSubmit } = this.props;
         return (
@@ -90,7 +71,7 @@ class RegisterContainer extends React.Component {
                         <div className='col-md-12'>
                             <div className="containerElementsNavBar">
                                 <div className="logo">
-                                    <img src={require(`../images/logoSlackHeader.png`)} className="imageLogoModal" />
+                                    <img src={require('../images/'+this.state.afk+'.png')} className="imageLogoModal" />
                                 </div>
                                 <div className="navBar">
                                     <a className="linkHeader"> <span className="navBarLetters"> Product </span> </a>
@@ -136,6 +117,12 @@ class RegisterContainer extends React.Component {
                             <div className="inputRectangle">
                                 <p className="labelRegister">Password:</p>
                                 <Field name="password" className="rectangleInputUserRegister" component={renderField} type="password" placeholder="Entrer your password" />
+                                {this.props.user !== null && this.props.user !== undefined
+                                    ? this.props.user.userLogged == true
+                                        ? <Redirect to='/chat' />
+                                        : console.log('REDIRECT TO LOGIN')
+                                    : null
+                                }
                                 <button className="rectangleSubmitArrowRegister" href='#' id='' type='submit'>
                                     <img src={require(`../images/loginarrow.svg`)} className="arrowSubmit" />
                                 </button>
@@ -159,7 +146,8 @@ RegisterContainer.contextTypes = {
 function mapStateToProps(state) {
     return {
         errorMessage: state.auth.error,
-        message: state.auth.message
+        message: state.auth.message,
+        user: state.user,
     };
 }
 

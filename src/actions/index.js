@@ -5,21 +5,17 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 import ChatContainer from '../containers/ChatContainer'
 import { AUTH_USER, AUTH_ERROR, UNAUTH_USER, SET_USER, SET_ALL_USERS, SET_FETCH_READY, SET_CHAT, SET_MESSAGE, SET_USER_LOGGED, SET_MESSAGES_FOR_EVERYONE, SET_CURRENT_MESSAGES, SET_MESSAGES_TYPE, UPDATE_MESSAGE, UPDATE_MESSAGE_CHANNELS } from './types';
-const API_URL = 'https://agile-journey-45148.herokuapp.com/api';
-const API_URL_ROUTES = 'https://agile-journey-45148.herokuapp.com/api/routes';
-const API_CLIENTE = 'https://grader-toad-67805.netlify.com';
-// const API_URL = 'http://localhost:3000/api';
-// const API_URL_ROUTES = 'http://localhost:3000/api/routes';
+//const API_URL = 'https://agile-journey-45148.herokuapp.com/api';
+//const API_URL_ROUTES = 'https://agile-journey-45148.herokuapp.com/api/routes';
+//const API_CLIENTE = 'https://grader-toad-67805.netlify.com';
+const API_URL = 'http://localhost:3000/api';
+const API_URL_ROUTES = 'http://localhost:3000/api/routes';
 
 
-function setUser(user) {
-    console.log('estoy en setUser con el usuario ' + user);
-    return { type: SET_USER, user: user };
-}
+/* Method called from the Login Container when user submit the information for login itself  */
 export function loginUser({ email, password }) {
     console.log('ESTOY EN LOGIN');
     return function (dispatch) {
-        // Promise.all([
         axios
             .post(`${API_URL}/auth/login`, { email, password })
             .then((response) => {
@@ -40,11 +36,16 @@ export function loginUser({ email, password }) {
     }
 
 }
+function setUser(user) {
+    console.log('estoy en setUser con el usuario ' + user);
+    return { type: SET_USER, user: user };
+}
 
-
+/* Method called from the Regiter Container when user submit the information for register  */
 export function registerUser({ firstName, lastName, email, password }) {
     return function (dispatch) {
-        axios.post(`${API_URL}/auth/register`, { firstName, lastName, email, password })
+        let photo = "yes";
+        axios.post(`${API_URL}/auth/register`, { firstName, lastName, email, password,photo })
             .then(response => {
                 dispatch({
                     type: SET_USER,
@@ -59,24 +60,17 @@ export function registerUser({ firstName, lastName, email, password }) {
                 cookies.set('token', response.data.user, { path: '/' });
             })
             .catch((error) => {
-                // errorHandler(dispatch, error.response, AUTH_ERROR)
                 console.log('Error');
             });
     }
 }
 
 
-export function setUserLogged(object) {
-    dispatch({
-        type: 'SET_USER_LOGGED',
-        userLogged: object
-    });
-}
-
 /* Method called from this module by fetchAllUsers()  */
 function setAllUsers(allUsers) {
     return { type: SET_ALL_USERS, allUsers };
 }
+
 /* Method to get all the users in the database */
 export function fetchAllUsers() {
     return function (dispatch) {
@@ -240,6 +234,11 @@ export function getUserEmisorData(userId) {
             .catch(error => console.log('Axios error: ', error));
     }
 }
-
+export function setUserLogged(object) {
+    dispatch({
+        type: 'SET_USER_LOGGED',
+        userLogged: object
+    });
+}
 
 

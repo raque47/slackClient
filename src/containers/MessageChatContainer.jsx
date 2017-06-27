@@ -1,8 +1,6 @@
 import React from 'react';
 import store from '../store';
 import MessageChat from '../components/messageChat/messageChat';
-// import './messageChat.scss';
-// import '../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss';
 
 class MessageChatContainer extends React.Component {
   constructor(props) {
@@ -10,6 +8,7 @@ class MessageChatContainer extends React.Component {
     this.state = {
       name: '',
       pathImage: '../../src/images/users/noPhoto.png',
+      
     };
   }
   render() {
@@ -20,12 +19,13 @@ class MessageChatContainer extends React.Component {
         this.state.name = store.getState().allUsers.allUsers.find((element) => (element._id === this.props.userEmisor)).profile.firstName;
 
         const userInChat = (store.getState().allUsers.allUsers.find((element) => (element.profile.firstName === this.state.name)));
+
         if (userInChat != undefined) {
-          if (userInChat.photo === "yes") {
-            this.state.pathImage = `../../src/images/users/${this.state.name}.png`;
+          if (userInChat.photo === "no") {
+            this.state.pathImage = `./src/images/users/${this.state.name}.png`;
           }
           else {
-            this.state.pathImage = '../../src/images/users/noPhoto.png';
+            this.state.pathImage = '../src/images/users/noPhoto.png';
           }
         }
       }
@@ -39,8 +39,6 @@ class MessageChatContainer extends React.Component {
               date = {this.props.date}
               content =  {this.props.content}
         />
-
-
     );
   }
 }
