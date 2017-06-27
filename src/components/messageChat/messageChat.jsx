@@ -9,19 +9,19 @@ class Message extends React.Component {
       <div>
         <div className='row message'>
           <div className='containerOfImage'>
-            {this.props.name === 'Mario' ?
-              <img className='imgMessage' src={require(`../images/users/Juan.png`)} />
+            {this.props.name === 'Juan' ?
+              <img className='imgMessage' src={require(`../../images/users/Juan.png`)} />
               :
               this.props.name === 'Mario' ?
-                <img className='imgMessage' src={require(`../images/users/Mario.png`)} />
+                <img className='imgMessage' src={require(`../../images/users/Mario.png`)} />
                 :
                 this.props.name === 'Lola' ?
-                  <img className='imgMessage' src={require(`../images/users/Lola.png`)} />
+                  <img className='imgMessage' src={require(`../../images/users/Lola.png`)} />
                   :
                   this.props.name === 'Raquel' ?
-                    <img className='imgMessage' src={require(`../images/users/Raquel.png`)} />
+                    <img className='imgMessage' src={require(`../../images/users/Raquel.png`)} />
                     :
-                    <img className='imgMessage' src={require(`../images/users/noPhoto.png`)} />
+                    <img className='imgMessage' src={require(`../../images/users/noPhoto.png`)} />
             }
           </div>
           <div className='col-md-10'>

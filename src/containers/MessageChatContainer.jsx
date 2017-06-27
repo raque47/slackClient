@@ -7,7 +7,7 @@ class MessageChatContainer extends React.Component {
     super(props);
     this.state = {
       name: '',
-      pathImage: '../../src/images/users/noPhoto.png',
+      pathImage: '../src/images/users/noPhoto.png',
       
     };
   }
@@ -22,7 +22,7 @@ class MessageChatContainer extends React.Component {
 
         if (userInChat != undefined) {
           if (userInChat.photo === "no") {
-            this.state.pathImage = `./src/images/users/${this.state.name}.png`;
+            this.state.pathImage = `../src/images/users/${this.state.name}.png`;
           }
           else {
             this.state.pathImage = '../src/images/users/noPhoto.png';
