@@ -5,11 +5,11 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 import ChatContainer from '../containers/ChatContainer'
 import { AUTH_USER, AUTH_ERROR, UNAUTH_USER, SET_USER, SET_ALL_USERS, SET_FETCH_READY, SET_CHAT, SET_MESSAGE, SET_USER_LOGGED, SET_MESSAGES_FOR_EVERYONE, SET_CURRENT_MESSAGES, SET_MESSAGES_TYPE, UPDATE_MESSAGE, UPDATE_MESSAGE_CHANNELS } from './types';
-// const API_URL = 'https://agile-journey-45148.herokuapp.com/api';
-// const API_URL_ROUTES = 'https://agile-journey-45148.herokuapp.com/api/routes';
-// const API_CLIENTE = 'https://grader-toad-67805.netlify.com';
-const API_URL = 'http://localhost:3000/api';
-const API_URL_ROUTES = 'http://localhost:3000/api/routes';
+const API_URL = 'https://agile-journey-45148.herokuapp.com/api';
+const API_URL_ROUTES = 'https://agile-journey-45148.herokuapp.com/api/routes';
+const API_CLIENTE = 'https://grader-toad-67805.netlify.com';
+// const API_URL = 'http://localhost:3000/api';
+// const API_URL_ROUTES = 'http://localhost:3000/api/routes';
 
 
 function setUser(user) {
@@ -65,56 +65,6 @@ export function registerUser({ firstName, lastName, email, password }) {
     }
 }
 
-// export function protectedTest() {
-//     return function (dispatch) {
-//         axios.get(`${API_URL}/protected`, {
-//             headers: { 'Authorization': cookie.load('token') }
-//         })
-//             .then(response => {
-//                 dispatch({
-//                     type: PROTECTED_TEST,
-//                     payload: response.data.content
-//                 });
-//             })
-//             .catch((error) => {
-//                 errorHandler(dispatch, error.response, AUTH_ERROR)
-//             });
-//     }
-// }
-
-// export function logoutUser() {
-//     return function (dispatch) {
-//         dispatch({ type: UNAUTH_USER });
-//         cookie.remove('token', { path: '/' });
-
-//         window.location.href = CLIENT_ROOT_URL + '/login';
-//     }
-// }
-
-// export function errorHandler(dispatch, error, type) {
-//     let errorMessage = '';
-
-//     if (error.data.error) {
-//         errorMessage = error.data.error;
-//     } else if (error.data) {
-//         errorMessage = error.data;
-//     } else {
-//         errorMessage = error;
-//     }
-
-//     if (error.status === 401) {
-//         dispatch({
-//             type: type,
-//             payload: 'You are not authorized to do this. Please login and try again.'
-//         });
-//         logoutUser();
-//     } else {
-//         dispatch({
-//             type: type,
-//             payload: errorMessage
-//         });
-//     }
-// }
 
 export function setUserLogged(object) {
     dispatch({

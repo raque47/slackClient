@@ -53,6 +53,7 @@ class ChatContainer extends React.Component {
 
         });
     };
+
     //load all the messages of a private conversation, when the logged user select a user of the contacts list.
     loadAllCurrentMessagesOfChat(userSelectedId) {
         socket.emit('addUser', userSelectedId);
@@ -64,24 +65,25 @@ class ChatContainer extends React.Component {
         this.props.getUserSelectedData(userSelectedId);
     };
 
+    //load all the messages of a channel conversation, when the logged user select the channel.
     loadAllCurrentMessagesOfRoom(channel) {
         this.props.fetchMessagesForEveryone(this.props.user.user._id);
     }
 
+    //Send the new message, check if it is a personal or general message and call the respective method of redux actions.
     sendNewMessage(newMessage) {
         const date = new Date();
         const hours = date.getHours();
         const minutes = date.getMinutes();
         const hour = `${hours}:${minutes}`;
-        //IF THE MESSAGE IS A PERSONAL MESSAGE
+        //if the new message is a personal message
         if (store.getState().allCurrentMessages.messageType === 'personal') {
             this.props.sendNewMessage(this.props.user.user._id, newMessage, store.getState().user.userSelectedId, hour, socket);
         }
-        else { //IF THE MESSAGE IS A GRUPAL MESSAGE (CHATROOM)
+        else { //if the new message is a general message (chatroom)
             this.props.sendNewMessageBroadcast(this.props.user.user._id, newMessage, '00', hour, socket);
         }
     };
-
 
     render() {
         const { allUsers, allCurrentMessages, allMessagesForEveryone, allMessagesForShow, user, userSelected, userSelectedId, messageType } = this.props;
@@ -145,7 +147,6 @@ const mapStateToProps = (state) => {
         messageType: state.messageType,
         dataOfUserSelected: state.dataOfUserSelected,
         dataOfUserEmisor: state.dataOfUserEmisor,
-        //content: state.auth.contents
     };
 };
 const mapDispatchToProps = dispatch => {
