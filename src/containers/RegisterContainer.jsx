@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 //import io from 'socket.io-client';
 import appStyle from '../components/app/_app.scss'
+import store from '../store';
 //import axios from 'axios'
 //import Register from '../components/Register/Register'
 import { registerUser } from '../actions/index';
@@ -58,17 +59,17 @@ class RegisterContainer extends React.Component {
         })
     }
     seeIfCanLoad() {
-        this.state.continue === true ? this.context.router.history.push('/chat') : null
-        Promise.all([
+       // this.state.continue === true ? this.context.router.history.push('/chat') : null
+       // Promise.all([
             store.getState().user.userLogged === true ?
                 this.context.router.history.push('/chat') : null
-        ]).then(() => {
-            {
-                store.getState().user.userLogged === true ?
-                    this.context.router.history.push('/chat')
-                    : null
-            }
-        })
+        //]).then(() => {
+          //  {
+        //         store.getState().user.userLogged === true ?
+        //             this.context.router.history.push('/chat')
+        //             : null
+        //    // }
+        //})
     }
     renderAlert() {
         if (this.props.errorMessage) {
