@@ -6,21 +6,34 @@ import axios from 'axios'
 import Login from '../components/login/login'
 import { loginUser } from '../actions/index';
 import { Field, reduxForm } from 'redux-form';
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
+import store from '../store';
+import PropTypes from 'prop-types';
 
 const form = reduxForm({
     form: 'login'
 });
 
 class LoginContainer extends React.Component {
-    constructor(props) {
-        super(props);
+    constructor(props, context) {
+        super(props, context);
         this.state = {
+            continue: false
         }
     }
     handleFormSubmit(formProps) {
-        console.log(formProps);
-        this.props.loginUser(formProps);
+        console.log('HANDLE SUBMIT ');
+        Promise.all([
+            //console.log(formProps);
+            this.props.loginUser(formProps)
+        ]).then(() => {
+            console.log('ya sali');
+            this.continue = true;
+            this.setState({ continue: true });
+            console.log('state despues de promise ', this.state.continue);
+            this.seeIfCanLoad();
+        })
+        console.log(this.state.continue);
     }
     renderAlert() {
         if (this.props.errorMessage) {
@@ -30,6 +43,32 @@ class LoginContainer extends React.Component {
                 </div>
             );
         }
+    }
+    seeIfCanLoad() {
+        console.log('Estoy en el metodo see if i can load');
+        console.log('Variable de estado en redux ', store.getState().user.userLogged);
+        console.log('Variable de login container ', this.continue);
+        this.state.continue === true ? this.context.router.history.push('/chat') : null
+
+        Promise.all([
+            store.getState().user.userLogged === true ?
+                // <Redirect to="/chat" /> 
+             this.context.router.history.push('/chat') : null
+        ]).then(() => {
+            console.log('Variable in login containers ' + store.getState().user.userLogged);
+            {
+                store.getState().user.userLogged === true ?
+                    /*(<Route exact path="/"
+                        render={() => (
+                            <Redirect to="/chat" />
+                        )}
+                    />)*/
+                   this.context.router.history.push('/chat') 
+                    : null
+            }
+            console.log('variable ' + store.getState().user.userLogged);
+            console.log('salir');
+        })
     }
 
     render() {
@@ -69,7 +108,9 @@ class LoginContainer extends React.Component {
                         <img src={require(`../images/logoModal.png`)} className="imageLogoModal" />
                         <div className="textModal">Sign in</div>
                     </div>
+
                     <div className="containerInputsModal">
+
                         <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
                             {this.renderAlert()}
                             <div className="inputRectangleUser">
@@ -82,18 +123,24 @@ class LoginContainer extends React.Component {
                                 </button>
                             </div>
                         </form>
+
                         <div className="informationText">
                             <p className='loginText'>Don't have an account?  </p>
-                            <Link to= "/register" className='loginTextSignUp'>Sign up here!</Link>
+                            <Link to="/register" className='loginTextSignUp'>Sign up here!</Link>
                         </div>
                     </div>
+
+                    {/*{this.continue === true ?
+                        this.seeIfCanLoad() : null
+                    }*/}
                 </div>
             </div>
         );
     }
 }
-
-
+LoginContainer.contextTypes = {
+    router: PropTypes.func.isRequired
+};
 function mapStateToProps(state) {
     return {
         errorMessage: state.auth.error,

@@ -21,7 +21,7 @@
     margin-top: -2rem;
 }
 .textModalRegister {
-        color: #212121;
+    color: #212121;
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     font-weight: 300;
     line-height: 36px;
@@ -46,10 +46,15 @@
 	
 .rectangleSubmitArrowRegister {
     height: 34px;
+    border-radius: 0 8px 8px 0;
+    border: none;
+    outline: none;
+    box-shadow: none;
 }
 
 .rectangleSubmitArrowRegister {
-    width: 27.39%;
+    width: 23.39%;
+    border: none;
     height: 34px;
     background-color: #20a766;
     border-radius: 0 4px 4px 0;
@@ -62,5 +67,10 @@
 
 .rectangleInputUserRegister{
     width: 100%;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    padding-left: 10px;
+    box-shadow: none;
 }
 

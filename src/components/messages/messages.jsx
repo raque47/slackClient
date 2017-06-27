@@ -1,20 +1,14 @@
 import React from 'react';
-import './dateMessageChat.scss';
-import Message from '../messageChat/messageChat';
+import './messages.scss';
+import MessageChatContainer from '../../containers/MessageChatContainer';
 import store from '../../store';
 import { SET_MESSAGES_TO_SHOW } from '../../actions/types'
 import '../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss';
 
-// allCurrentMessages={this.props.allCurrentMessages}
-// allMessagesForEveryone={this.props.allMessagesForEveryone}
-// userEmisor={this.props.userEmisor} />
-class DateMessage extends React.Component {
+class Messages extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      type: '',
-      //arrayOfMessagesToShow: [{}]
-    };
+    this.state = {type: ''};
   }
   render() {
 
@@ -38,7 +32,7 @@ class DateMessage extends React.Component {
                       console.log(message.idTransmitter),
                       console.log('TIENE QUE LLEGARR EL IDDDDDDD!!!!!!'),
                       console.log(message._id),
-                      <Message
+                      <MessageChatContainer
                         key={message._id}
                         content={message.content}
                         idReceiver={message.idReceiver}
@@ -66,7 +60,7 @@ class DateMessage extends React.Component {
                 this.props.allCurrentMessages.allMessagesForEveryone !== undefined ?
                   this.props.allCurrentMessages.allMessagesForEveryone
                     .map((message) => (
-                      <Message
+                      <MessageChatContainer
                         key={message._id}
                         content={message.content}
                         idReceiver={message.idReceiver}
@@ -84,5 +78,5 @@ class DateMessage extends React.Component {
     );
   }
 }
-export default DateMessage;
+export default Messages;
 

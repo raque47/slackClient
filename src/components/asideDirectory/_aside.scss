@@ -271,28 +271,28 @@ $brand-green: #20a766;
     color: white;
   }
 
-.scrollbar
+.scrollbarDirectory
 {
-	background:#F3F3F3;
   overflow: hidden;
   overflow-y: auto;
+  overflow-x: auto;
   position:relative;   
 }
-#style-1::-webkit-scrollbar-track
+#styleDirectory::-webkit-scrollbar-track
 {
 	border-radius: 10px;
-	background-color: #F3F3F3;
+	background-color: #3E2D3A;
 }
-#style-1::-webkit-scrollbar
+#styleDirectory::-webkit-scrollbar
 {
   border-radius: 10px;
 	width: 12px;
-	background-color: #F5F5F5;
+	background-color: #3E2D3A;
 }
-#style-1::-webkit-scrollbar-thumb
+#styleDirectory::-webkit-scrollbar-thumb
 {
 	border-radius: 10px;
-	background-color: #D6D6D6;
+	background-color: #AB9BAA;
 }
 
     /* Smartphones (portrait & landscape) */

@@ -1,8 +1,10 @@
 import axios from 'axios';
 import store from '../store';
 import Cookies from 'universal-cookie';
+import React from 'react';
+import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
+import ChatContainer from '../containers/ChatContainer'
 import { AUTH_USER, AUTH_ERROR, UNAUTH_USER, SET_USER, SET_ALL_USERS, SET_FETCH_READY, SET_CHAT, SET_MESSAGE, SET_USER_LOGGED, SET_MESSAGES_FOR_EVERYONE, SET_CURRENT_MESSAGES, SET_MESSAGES_TYPE, UPDATE_MESSAGE, UPDATE_MESSAGE_CHANNELS } from './types';
-
 const API_URL = 'https://agile-journey-45148.herokuapp.com/api';
 const API_URL_ROUTES = 'https://agile-journey-45148.herokuapp.com/api/routes';
 const API_CLIENTE= 'https://grader-toad-67805.netlify.com';
@@ -15,28 +17,46 @@ function setUser(user) {
     return { type: SET_USER, user: user };
 }
 export function loginUser({ email, password }) {
+
+    console.log('ESTOY EN LOGIN');
     return function (dispatch) {
-        axios
-            .post(`${API_URL}/auth/login`, { email, password })
-            .then((response) => {
-                dispatch({
-                    type: SET_USER,
-                    user: response.data.user
-                });
-                dispatch({ type: AUTH_USER });
-                const cookies = new Cookies();
-                cookies.set('token', response.data.user, { path: '/' });
-                window.location.href = API_CLIENTE+ '/chat';
-            })
-            .catch((error) => {
-                console.log('Axios error');
-            });
+       // Promise.all([
+            axios
+                .post(`${API_URL}/auth/login`, { email, password })
+                .then((response) => {
+                    dispatch({
+                        type: SET_USER,
+                        user: response.data.user
+                    });
+                    dispatch({
+                        type: AUTH_USER
+                    });
+                    const cookies = new Cookies();
+                    cookies.set('token', response.data.user, { path: '/' });
+                    //window.location.href = '/chat';
+                    <Link to = "/chat" />
+                    dispatch({
+                        type: SET_USER_LOGGED,
+                        userLogged: true
+                    });
+
+                //    <Redirect to="/chat" />
+                })
+        /*]).then(() => {
+            <Route exact path="/"
+                render={() => (
+                    <Redirect to="/chat" />
+                )}
+            />
+        })*/
     }
+
 }
+
 
 export function registerUser({ firstName, lastName, email, password }) {
     return function (dispatch) {
-        axios.post(`${API_URL}/auth/register`, {  firstName, lastName,email, password })
+        axios.post(`${API_URL}/auth/register`, { firstName, lastName, email, password })
             .then(response => {
                 dispatch({
                     type: SET_USER,
@@ -45,7 +65,8 @@ export function registerUser({ firstName, lastName, email, password }) {
                 dispatch({ type: AUTH_USER });
                 const cookies = new Cookies();
                 cookies.set('token', response.data.user, { path: '/' });
-                window.location.href =  API_CLIENTE+'/chat';
+                //window.location.href =  API_CLIENTE+'/chat';
+                window.location.href = '/chat';
             })
             .catch((error) => {
                 // errorHandler(dispatch, error.response, AUTH_ERROR)
@@ -54,56 +75,56 @@ export function registerUser({ firstName, lastName, email, password }) {
     }
 }
 
-export function protectedTest() {
-    return function (dispatch) {
-        axios.get(`${API_URL}/protected`, {
-            headers: { 'Authorization': cookie.load('token') }
-        })
-            .then(response => {
-                dispatch({
-                    type: PROTECTED_TEST,
-                    payload: response.data.content
-                });
-            })
-            .catch((error) => {
-                errorHandler(dispatch, error.response, AUTH_ERROR)
-            });
-    }
-}
+// export function protectedTest() {
+//     return function (dispatch) {
+//         axios.get(`${API_URL}/protected`, {
+//             headers: { 'Authorization': cookie.load('token') }
+//         })
+//             .then(response => {
+//                 dispatch({
+//                     type: PROTECTED_TEST,
+//                     payload: response.data.content
+//                 });
+//             })
+//             .catch((error) => {
+//                 errorHandler(dispatch, error.response, AUTH_ERROR)
+//             });
+//     }
+// }
 
-export function logoutUser() {
-    return function (dispatch) {
-        dispatch({ type: UNAUTH_USER });
-        cookie.remove('token', { path: '/' });
+// export function logoutUser() {
+//     return function (dispatch) {
+//         dispatch({ type: UNAUTH_USER });
+//         cookie.remove('token', { path: '/' });
 
-        window.location.href = CLIENT_ROOT_URL + '/login';
-    }
-}
+//         window.location.href = CLIENT_ROOT_URL + '/login';
+//     }
+// }
 
-export function errorHandler(dispatch, error, type) {
-    let errorMessage = '';
+// export function errorHandler(dispatch, error, type) {
+//     let errorMessage = '';
 
-    if (error.data.error) {
-        errorMessage = error.data.error;
-    } else if (error.data) {
-        errorMessage = error.data;
-    } else {
-        errorMessage = error;
-    }
+//     if (error.data.error) {
+//         errorMessage = error.data.error;
+//     } else if (error.data) {
+//         errorMessage = error.data;
+//     } else {
+//         errorMessage = error;
+//     }
 
-    if (error.status === 401) {
-        dispatch({
-            type: type,
-            payload: 'You are not authorized to do this. Please login and try again.'
-        });
-        logoutUser();
-    } else {
-        dispatch({
-            type: type,
-            payload: errorMessage
-        });
-    }
-}
+//     if (error.status === 401) {
+//         dispatch({
+//             type: type,
+//             payload: 'You are not authorized to do this. Please login and try again.'
+//         });
+//         logoutUser();
+//     } else {
+//         dispatch({
+//             type: type,
+//             payload: errorMessage
+//         });
+//     }
+// }
 
 export function setUserLogged(object) {
     dispatch({

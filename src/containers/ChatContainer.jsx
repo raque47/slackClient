@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../actions';
+import * as actions from '../actions/types';
 import io from 'socket.io-client';
 import axios from 'axios';
 import Chat from '../components/chat/chat';

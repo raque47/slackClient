@@ -1,14 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './mainChat.scss';
-import Messages from '../dateMessagesChat/dateMessageChat';
+import Messages from '../messages/messages';
 import '../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss';
 class MainChat extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-
-    };
     this.onHandleKeyPress = this.onHandleKeyPress.bind(this);
     this.scrollToBottom = this.scrollToBottom.bind(this);
   }

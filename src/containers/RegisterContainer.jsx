@@ -96,15 +96,19 @@ class RegisterContainer extends React.Component {
                         <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
                             {this.renderAlert()}
                             <div className="inputRectangleUser">
+                                <p className="labelRegister">First name:</p>
                                 <Field name="firstName" className="rectangleInputUserRegister" component={renderField} type="text" placeholder="Enter your name" />
                             </div>
                             <div className="inputRectangleUser">
+                                <p className="labelRegister">Last name:</p>
                                 <Field name="lastName" className="rectangleInputUserRegister" component={renderField} type="text" placeholder="Enter your last name" />
                             </div>
                             <div className="inputRectangleUser">
+                                <p className="labelRegisterPassword">Email:</p>
                                 <Field name="email" className="rectangleInputUserRegister" component={renderField} type="text" placeholder="Enter your email" />
                             </div>
                             <div className="inputRectangle">
+                                <p className="labelRegister">Password:</p>
                                 <Field name="password" className="rectangleInputUserRegister" component={renderField} type="password" placeholder="Entrer your password" />
                                 <button className="rectangleSubmitArrowRegister" href='#' id='' type='submit'>
                                     <img src={require(`../images/loginarrow.svg`)} className="arrowSubmit" />

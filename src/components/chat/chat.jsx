@@ -11,12 +11,8 @@ import '../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss'
 class Chat extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
   }
   render() {
-    //console.log('USER EMISOR this.props.emisor');
-    //console.log(this.props.userEmisor);
- 
     return (
       <div className='row home'>
         <AsideDirectory 
