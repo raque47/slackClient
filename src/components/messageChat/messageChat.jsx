@@ -9,7 +9,20 @@ class Message extends React.Component {
       <div>
         <div className='row message'>
           <div className='containerOfImage'>
-            <img className='imgMessage' src=  {this.props.pathImage} />
+            {this.props.name === 'Mario' ?
+              <img className='imgMessage' src={require(`../images/Juan.png`)} />
+              :
+              this.props.name === 'Mario' ?
+                <img className='imgMessage' src={require(`../images/Mario.png`)} />
+                :
+                this.props.name === 'Lola' ?
+                  <img className='imgMessage' src={require(`../images/Lola.png`)} />
+                  :
+                  this.props.name === 'Raquel' ?
+                    <img className='imgMessage' src={require(`../images/Raquel.png`)} />
+                    :
+                    <img className='imgMessage' src={require(`../images/noPhoto.png`)} />
+            }
           </div>
           <div className='col-md-10'>
             <div className='messageTitle'>
@@ -27,4 +40,3 @@ class Message extends React.Component {
 }
 export default Message;
 
-   

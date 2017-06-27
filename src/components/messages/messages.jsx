@@ -26,12 +26,6 @@ class Messages extends React.Component {
                 this.props.allCurrentMessages.allCurrentMessages !== undefined ?
                   this.props.allCurrentMessages.allCurrentMessages
                     .map((message) => (
-                      console.log('ESTOY EN privado'),
-                      console.log(message),
-                      console.log('ID TRANSMITTER'),
-                      console.log(message.idTransmitter),
-                      console.log('TIENE QUE LLEGARR EL IDDDDDDD!!!!!!'),
-                      console.log(message._id),
                       <MessageChatContainer
                         key={message._id}
                         content={message.content}
