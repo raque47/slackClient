@@ -39,15 +39,11 @@ class ChatContainer extends React.Component {
     componentWillMount() {
         const cookies = new Cookies();
         const token = cookies.get('token');
-        if (token) {
-            store.dispatch({
-                type: SET_USER,
-                user: token,
-            });
-        }
         //socket = io.connect('http://localhost:3000');
         socket = io.connect('https://agile-journey-45148.herokuapp.com');
-        socket.emit('connected', token._id);
+        if(this.props.user! == null && this.props.user !== undefined){
+            socket.emit('connected', this.props.user.user._id);
+        } 
 
         socket.on('sendMessage', (username, content, idReceiver, hour) => {
         });

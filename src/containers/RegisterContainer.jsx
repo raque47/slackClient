@@ -59,17 +59,17 @@ class RegisterContainer extends React.Component {
         })
     }
     seeIfCanLoad() {
-       // this.state.continue === true ? this.context.router.history.push('/chat') : null
-       // Promise.all([
+       this.state.continue === true ? this.context.router.history.push('/chat') : null
+       Promise.all([
             store.getState().user.userLogged === true ?
                 this.context.router.history.push('/chat') : null
-        //]).then(() => {
-          //  {
-        //         store.getState().user.userLogged === true ?
-        //             this.context.router.history.push('/chat')
-        //             : null
-        //    // }
-        //})
+        ]).then(() => {
+           {
+                store.getState().user.userLogged === true ?
+                    this.context.router.history.push('/chat')
+                    : null
+            }
+        })
     }
     renderAlert() {
         if (this.props.errorMessage) {

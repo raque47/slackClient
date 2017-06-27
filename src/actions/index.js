@@ -31,24 +31,13 @@ export function loginUser({ email, password }) {
                 dispatch({
                     type: AUTH_USER
                 });
-                const cookies = new Cookies();
-                cookies.set('token', response.data.user, { path: '/' });
-                //window.location.href = '/chat';
-                <Link to="/chat" />
                 dispatch({
                     type: SET_USER_LOGGED,
                     userLogged: true
                 });
-
-                //    <Redirect to="/chat" />
+                const cookies = new Cookies();
+                cookies.set('token', response.data.user, { path: '/' });
             })
-        /*]).then(() => {
-            <Route exact path="/"
-                render={() => (
-                    <Redirect to="/chat" />
-                )}
-            />
-        })*/
     }
 
 }
@@ -63,14 +52,12 @@ export function registerUser({ firstName, lastName, email, password }) {
                     user: response.data.user
                 });
                 dispatch({ type: AUTH_USER });
-                const cookies = new Cookies();
-                cookies.set('token', response.data.user, { path: '/' });
-                //window.location.href =  API_CLIENTE+'/chat';
-                //window.location.href = '/chat';
                 dispatch({
                     type: SET_USER_LOGGED,
                     userLogged: true
                 });
+                const cookies = new Cookies();
+                cookies.set('token', response.data.user, { path: '/' });
             })
             .catch((error) => {
                 // errorHandler(dispatch, error.response, AUTH_ERROR)

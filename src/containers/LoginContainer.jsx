@@ -18,21 +18,20 @@ class LoginContainer extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            continue: false
+            //continue: false
         }
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
+        this.renderAlert = this.renderAlert.bind(this);
     }
     handleFormSubmit(formProps) {
-        console.log('HANDLE SUBMIT ');
-        Promise.all([
-            //console.log(formProps);
-            this.props.loginUser(formProps)
-        ]).then(() => {
-            console.log('ya sali');
-            this.continue = true;
-            this.setState({ continue: true });
-            console.log('state despues de promise ', this.state.continue);
-            this.seeIfCanLoad();
-        })
+        // Promise.all([
+        //     //console.log(formProps);
+        this.props.loginUser(formProps)
+        // ]).then(() => {
+        //     this.continue = true;
+        //     this.setState({ continue: true });
+        //     this.seeIfCanLoad();
+        // })
         console.log(this.state.continue);
     }
     renderAlert() {
@@ -44,32 +43,22 @@ class LoginContainer extends React.Component {
             );
         }
     }
-    seeIfCanLoad() {
-        console.log('Estoy en el metodo see if i can load');
-        console.log('Variable de estado en redux ', store.getState().user.userLogged);
-        console.log('Variable de login container ', this.continue);
-        this.state.continue === true ? this.context.router.history.push('/chat') : null
-
-        Promise.all([
-            store.getState().user.userLogged === true ?
-                // <Redirect to="/chat" /> 
-             this.context.router.history.push('/chat') : null
-        ]).then(() => {
-            console.log('Variable in login containers ' + store.getState().user.userLogged);
-            {
-                store.getState().user.userLogged === true ?
-                    /*(<Route exact path="/"
-                        render={() => (
-                            <Redirect to="/chat" />
-                        )}
-                    />)*/
-                   this.context.router.history.push('/chat') 
-                    : null
-            }
-            console.log('variable ' + store.getState().user.userLogged);
-            console.log('salir');
-        })
-    }
+    // seeIfCanLoad() {
+    //     this.state.continue === true ? this.context.router.history.push('/chat') : null
+    //     Promise.all([
+    //         store.getState().user.userLogged === true ?
+    //          this.context.router.history.push('/chat') : null
+    //     ]).then(() => {
+    //         console.log('Variable in login containers ' + store.getState().user.userLogged);
+    //         {
+    //             store.getState().user.userLogged === true ?
+    //                this.context.router.history.push('/chat') 
+    //                 : null
+    //         }
+    //         console.log('variable ' + store.getState().user.userLogged);
+    //         console.log('salir');
+    //     })
+    // }
 
     render() {
         const { handleSubmit } = this.props;
@@ -118,6 +107,12 @@ class LoginContainer extends React.Component {
                             </div>
                             <div className="inputRectangle">
                                 <Field name="password" className="rectangleInput" component="input" type="password" placeholder="Entrer your password" />
+                                {this.props.user !== null && this.props.user !== undefined
+                                    ? this.props.user.userLogged == true
+                                        ? <Redirect to='/chat' />
+                                        : <Redirect to='/' />
+                                    : null
+                                }
                                 <button className="rectangleSubmitArrow" href='#' id='' type='submit'>
                                     <img src={require(`../images/loginarrow.svg`)} className="arrowSubmit" />
                                 </button>
