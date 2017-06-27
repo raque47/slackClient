@@ -6,7 +6,8 @@ import appStyle from '../components/app/_app.scss'
 //import Register from '../components/Register/Register'
 import { registerUser } from '../actions/index';
 import { Field, reduxForm } from 'redux-form';
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const form = reduxForm({
     form: 'register',
@@ -41,10 +42,34 @@ function validate(formProps) {
     return errors;
 }
 class RegisterContainer extends React.Component {
-    handleFormSubmit(formProps) {
-        this.props.registerUser(formProps);
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            continue: false
+        }
     }
-
+    handleFormSubmit(formProps) {
+        Promise.all([
+            this.props.registerUser(formProps)
+        ]).then(() => {
+            this.continue = true;
+            this.setState({ continue: true });
+            this.seeIfCanLoad();
+        })
+    }
+    seeIfCanLoad() {
+        this.state.continue === true ? this.context.router.history.push('/chat') : null
+        Promise.all([
+            store.getState().user.userLogged === true ?
+                this.context.router.history.push('/chat') : null
+        ]).then(() => {
+            {
+                store.getState().user.userLogged === true ?
+                    this.context.router.history.push('/chat')
+                    : null
+            }
+        })
+    }
     renderAlert() {
         if (this.props.errorMessage) {
             return (
@@ -127,8 +152,9 @@ class RegisterContainer extends React.Component {
         );
     }
 }
-
-
+RegisterContainer.contextTypes = {
+    router: PropTypes.func.isRequired
+};
 function mapStateToProps(state) {
     return {
         errorMessage: state.auth.error,
