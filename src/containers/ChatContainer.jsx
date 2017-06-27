@@ -8,21 +8,14 @@ import appStyle from '../components/app/_app.scss';
 import Cookies from 'universal-cookie';
 import store from '../store';
 import { SET_USER, SET_OTHER_USER_ID } from '../actions/types';
-import { fetchAllUsers } from '../actions/index';
-import { fetchAllCurrentMessages } from '../actions/index';
-import { fetchMessagesForEveryone } from '../actions/index';
-import { sendNewMessage } from '../actions/index';
-import { sendNewMessageBroadcast } from '../actions/index';
-import { changeMessageType } from '../actions/index';
-import { updateMessagesFromSocket } from '../actions/index';
-import { updateMessagesBroadcastFromSocket } from '../actions/index';
-import { getUserSelectedData } from '../actions/index';
-import { getUserEmisorData } from '../actions/index'
+import { fetchAllUsers, fetchAllCurrentMessages,fetchMessagesForEveryone,sendNewMessage,sendNewMessageBroadcast } from '../actions/index';
+import { changeMessageType,updateMessagesFromSocket,updateMessagesBroadcastFromSocket,getUserSelectedData,getUserEmisorData } from '../actions/index';
 import PropTypes from 'prop-types';
 
 let socket = null;
 
 class ChatContainer extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -31,31 +24,36 @@ class ChatContainer extends React.Component {
         this.loadAllCurrentMessagesOfChat = this.loadAllCurrentMessagesOfChat.bind(this);
         this.loadAllCurrentMessagesOfRoom = this.loadAllCurrentMessagesOfRoom.bind(this);
         this.sendNewMessage = this.sendNewMessage.bind(this);
-
     };
+
     componentDidMount() {
         this.props.loadAllUsers();
     };
+
     componentWillMount() {
-        const cookies = new Cookies();
-        const token = cookies.get('token');
-        //socket = io.connect('http://localhost:3000');
+        //connection to socket by socket.io-client
         socket = io.connect('https://agile-journey-45148.herokuapp.com');
+        // Send the id of the current user to the socket of the server side
         if(this.props.user !== null && this.props.user !== undefined){
             socket.emit('connected', this.props.user.user._id);
         } 
 
+        // Socket listen when sendMessage action is activate by the server side and receive the message data
         socket.on('sendMessage', (username, content, idReceiver, hour) => {
         });
+
+        // Socket listen when updateMessages action is activate by the server side and call a method to update the information of a private message with the data that received
         socket.on('updateMessages', (username, content, idReceiver, hour) => {
             this.props.updateMessagesFromSocket(username, content, idReceiver, hour);
-
         });
+
+        // Socket listen when updateMessagesBroadcast action is activate by the server side and call a method to update the message of type general
         socket.on('updateMessagesBroadcast', (username, content, idReceiver, hour, channel) => {
             this.props.updateMessagesBroadcastFromSocket(username, content, idReceiver, hour, channel);
 
         });
     };
+    //load all the messages of a private conversation, when the logged user select a user of the contacts list.
     loadAllCurrentMessagesOfChat(userSelectedId) {
         socket.emit('addUser', userSelectedId);
         this.props.loadAllCurrentMessages(userSelectedId, this.props.user.user._id);
@@ -65,9 +63,11 @@ class ChatContainer extends React.Component {
         });
         this.props.getUserSelectedData(userSelectedId);
     };
+
     loadAllCurrentMessagesOfRoom(channel) {
         this.props.fetchMessagesForEveryone(this.props.user.user._id);
     }
+
     sendNewMessage(newMessage) {
         const date = new Date();
         const hours = date.getHours();

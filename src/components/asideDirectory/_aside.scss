@@ -72,7 +72,6 @@ $brand-green: #20a766;
     height: calc(100% - 80px);
     .channel{
       font-size: 14px;
-      color:  #96889b;
       font-weight: 400;
       margin-bottom: 15px;
       &::nth-last-child(2){
@@ -119,23 +118,12 @@ $brand-green: #20a766;
       width: 6px;
     }
   }
-
-
-  //   .user-status:focus{
-  //   color:  #4C9689;
-  //     background-color: #4C9689;
-  //   &::before:focus{
-  //   color:  #4C9689;
-  //     background-color: #4C9689;
-  //   }
-  // }
-  
-  .focus:hover{  //
+  .focus:hover{  
     border-radius: 6px;
     color: #555459; //o	96889B
     background-color: transparent;
   }
-    .notFocus:hover{  //
+    .notFocus:hover{  
     border-radius: 6px;
     color: #555459; //o	96889B
     background-color: transparent;
@@ -196,7 +184,6 @@ $brand-green: #20a766;
 }
 
 //user-status online
-
 .user-status{
     color: $purple-font-light;
     font-size: 14px;
@@ -267,33 +254,35 @@ $brand-green: #20a766;
     color:white;
     border-radius: 3px;
   }
-  .aside .focus, {
+  .aside .focus {
     color: white;
   }
-
-.scrollbarDirectory
-{
-  overflow: hidden;
-  overflow-y: auto;
-  overflow-x: auto;
-  position:relative;   
-}
-#styleDirectory::-webkit-scrollbar-track
-{
-	border-radius: 10px;
-	background-color: #3E2D3A;
-}
-#styleDirectory::-webkit-scrollbar
-{
-  border-radius: 10px;
-	width: 12px;
-	background-color: #3E2D3A;
-}
-#styleDirectory::-webkit-scrollbar-thumb
-{
-	border-radius: 10px;
-	background-color: #AB9BAA;
-}
+  .aside .channel .focus{
+    color: white;
+  }
+  .scrollbarDirectory
+  {
+    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: auto;
+    position:relative;   
+  }
+  #styleDirectory::-webkit-scrollbar-track
+  {
+    border-radius: 10px;
+    background-color: #3E2D3A;
+  }
+  #styleDirectory::-webkit-scrollbar
+  {
+    border-radius: 10px;
+    width: 12px;
+    background-color: #3E2D3A;
+  }
+  #styleDirectory::-webkit-scrollbar-thumb
+  {
+    border-radius: 10px;
+    background-color: #AB9BAA;
+  }
 
     /* Smartphones (portrait & landscape) */
   @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {

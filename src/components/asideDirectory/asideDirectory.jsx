@@ -6,13 +6,14 @@ import store from '../../store';
 import { SET_MESSAGES_TYPE } from '../../actions/types';
 
 class AsideDirectory extends React.Component {
-
   constructor(props) {
     super(props);
-    this.state = { ready: false, userSelected:'' }
+    this.state = {ready: false}
     this.onHandleClickChat = this.onHandleClickChat.bind(this);
     this.onHandleClickGeneral = this.onHandleClickGeneral.bind(this);
   }
+  /**Method for loading all the messages of a private message 
+   and changing the state of type of message to private/personal messages **/
   onHandleClickChat(event) {
     this.props.loadAllCurrentMessagesOfChat(event.target.id);
     {
@@ -22,8 +23,9 @@ class AsideDirectory extends React.Component {
       });
     } 
   }
+  /**Method for loading all the messages of the general channel
+   and changing the state of type of message to general/channel messages **/
   onHandleClickGeneral(event) {
-    console.log('me estan presioanndo');
     this.props.loadAllCurrentMessagesOfRoom();
     {
       store.dispatch({
@@ -54,8 +56,9 @@ class AsideDirectory extends React.Component {
                 <a><span className='channels-options'>ALL THREADS</span></a>
                 <a><span className='channels-options'>CHANNELS</span></a>
                 <div className='channels'>
-                  <a onClick={this.onHandleClickGeneral} ><span className='channel'>General</span> </a>
-                  <a><span className='channel'>Channel 2</span> </a>
+                  <a onClick={this.onHandleClickGeneral} >
+                    <span className= {(store.getState().allCurrentMessages.messageType === 'room')  ? 'focus channel':'notFocus channel'} >General</span> 
+                  </a> 
                 </div>
               </div>
               <div className='direct-messages'>
@@ -63,9 +66,8 @@ class AsideDirectory extends React.Component {
                 {(this.state.ready ?
                   store.getState().allUsers.allUsers
                     .map((user) => (
-                      //console.log('user id de seleccionado '+ user._id),
                       <a key={user._id} onClick={this.onHandleClickChat} >
-                        <span className= {(store.getState().user.userSelectedId=== user._id) ? 'focus online':'notFocus online'}  id={user._id} >  
+                        <span className= {(store.getState().user.userSelectedId=== user._id && store.getState().allCurrentMessages.messageType !== 'room') ? 'focus online':'notFocus online'}  id={user._id} >  
                           {user.profile.firstName}  
                         </span>   
                       </a>))

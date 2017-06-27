@@ -9,18 +9,9 @@ import RegisterContainer from './containers/RegisterContainer'
 const routes = () => (
     <Router>
         <div>
-            <Switch>
-                <Route exact path="/" component={LoginContainer} />
-                <Route path="/register" component={RegisterContainer} />
-                <Route path="/chat" component={ChatContainer} />
-                <Route component={NotFoundPage} />
-            </Switch>
-
-            {/*<Route exact path="/" render={() => (
-                store.getState().user.userLogged === true ? (
-                    <Redirect to="/chat" />
-                ) :  <LoginContainer/>
-            )} />*/}
+            <Route exact path="/" component={LoginContainer} />
+            <Route exact path="/register" component={RegisterContainer} />
+            <Route exact path="/chat" component={ChatContainer} />
         </div>
     </Router>
 );
