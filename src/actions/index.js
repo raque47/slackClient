@@ -44,8 +44,7 @@ function setUser(user) {
 /* Method called from the Regiter Container when user submit the information for register  */
 export function registerUser({ firstName, lastName, email, password }) {
     return function (dispatch) {
-        let photo = "yes";
-        axios.post(`${API_URL}/auth/register`, { firstName, lastName, email, password,photo })
+        axios.post(`${API_URL}/auth/register`, { firstName, lastName, email, password })
             .then(response => {
                 dispatch({
                     type: SET_USER,

@@ -128,8 +128,7 @@ class RegisterContainer extends React.Component {
                                 </button>
                             </div>
                         </form>
-                        {/*<div className="informationText">
-                        </div>*/}
+                    
                         <div className="informationText">
                             <p className='loginText'>Already have an account?  </p>
                             <Link to="/" className='loginTextSignUp'>Sign in here!</Link>
@@ -140,9 +139,6 @@ class RegisterContainer extends React.Component {
         );
     }
 }
-RegisterContainer.contextTypes = {
-    router: PropTypes.func.isRequired
-};
 function mapStateToProps(state) {
     return {
         errorMessage: state.auth.error,
