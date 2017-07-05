@@ -45,7 +45,7 @@ class AsideDirectory extends React.Component {
         <div className='row'>
           <header className='col-md-12 header'>
             <div className='header-content aside-margin-left'>
-              <span className='white-text'>Konrad Group</span>
+              <span className='white-text'>Group</span>
               <span className='name-letter user-status online'> {(this.state.ready ? store.getState().user.user.firstName : <div />)} </span>
             </div>
           </header>
